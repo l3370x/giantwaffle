@@ -53,12 +53,12 @@ def login(request):
 def create(request):
 	d = {}
 	if request.method == 'GET':
-		form = django.contrib.auth.forms.UserCreationForm()
+		form = CreateUserForm()
 		return render_to_response('student/create.html', {'form':form},
 								  context_instance = RequestContext(request))
 
 	if request.method == 'POST':
-		form = django.contrib.auth.forms.UserCreationForm(request.POST)
+		form = CreateUserForm(request.POST)
 		if not form.is_valid():
 			return render_to_response('student/create.html', {'form':form},
 								  context_instance = RequestContext(request))
@@ -72,14 +72,17 @@ def create(request):
 			pass
 
 
-		userO = form.save()
-		person = Student.objects.create(user = userO, twitchName = "",
-											skypeName = "",
-											email = "")
-		auth_user = authenticate(username=request.POST['username'],password=request.POST['password1'])
+		userO = User.objects.create_user(request.POST['username'],request.POST['email'],request.POST['password']);
+		userO.save
+		person = Student.objects.create(user = userO, twitchName = request.POST['twitchName'],
+											skypeName = request.POST['skypeName'],
+											email = request.POST['email'])
+		auth_user = authenticate(username=request.POST['username'],password=request.POST['password'])
 		if auth_user is not None:
 			django.contrib.auth.login(request, auth_user)
 			return Home(request)
+		d['user']=userO
+		d['person']=person
 		return render_to_response('student/create.html', d, context_instance = RequestContext(request))
 
 
