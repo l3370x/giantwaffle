@@ -97,12 +97,7 @@ html, body {
 }
 
 .login {
-    background: #eee;
-}
-
-.login {
     background: white;
-    border: 1px solid #ccc;
     width: 28em;
     min-width: 300px;
     margin-left: auto;
