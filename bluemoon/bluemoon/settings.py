@@ -148,6 +148,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'student',
     'teacher',
+    'news',
 )
 
 
