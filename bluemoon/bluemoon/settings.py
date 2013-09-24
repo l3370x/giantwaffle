@@ -16,7 +16,7 @@ else:
 	basepath = '/homepages/19/d429491612/htdocs/giantwaffle'
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    # ('Aaron Miller', 'l3370x@gmail.com'),
 )
 
 MANAGERS = ADMINS
