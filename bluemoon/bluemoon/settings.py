@@ -93,7 +93,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
-
+ 
 if locHost:
 	STATICFILES_DIRS = (basepath + '/bluemoon/myStatic',)
 
@@ -150,7 +150,6 @@ INSTALLED_APPS = (
     'teacher',
     'news',
 )
-
 
 
 # A sample logging configuration. The only tangible logging

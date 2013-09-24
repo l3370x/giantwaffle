@@ -5,31 +5,31 @@ from django import forms
 
 class Student(models.Model):
   def __unicode__(self):
-    return self.first_name
+	return self.user.username
   def name(self):
-      return self.first_name + ' ' + self.last_name
-  user = models.ForeignKey(User, editable = False)
-  first_name = models.CharField(max_length = 50)
-  last_name = models.CharField(max_length = 50)
-  email = models.EmailField()
+	  return self.user.username
+  user = models.ForeignKey(User, editable=False)
+  twitchName = models.CharField(max_length=50, blank=True)
+  skypeName = models.CharField(max_length=50, blank=True)
+  email = models.EmailField(blank=True)
 
 class StudentForm(forms.ModelForm):
   class Meta:
-    model = Student
+	model = Student
 
 class LoginForm(forms.Form):
-  username = forms.CharField(max_length = 100)
-  password = forms.CharField(widget = forms.PasswordInput(render_value = False), max_length = 100)
+  username = forms.CharField(max_length=100)
+  password = forms.CharField(widget=forms.PasswordInput(render_value=False), max_length=100)
 
-class UserForm(forms.Form):
-  username = forms.CharField(max_length = 100)
-  first_name = forms.CharField(max_length = 50)
-  last_name = forms.CharField(max_length = 50)
-  email = forms.CharField(max_length = 100)
-  password = forms.CharField(widget = forms.PasswordInput(render_value = False), max_length = 100)
-  confirm = forms.CharField(widget = forms.PasswordInput(render_value = False), max_length = 100)
+class CreateUserForm(forms.Form):
+  username = forms.CharField(max_length=100)
+  twitchName = forms.CharField(max_length=50,required=False)
+  skypeName = forms.CharField(max_length=50,required=False)
+  email = forms.EmailField(max_length=100)
+  password = forms.CharField(widget=forms.PasswordInput(render_value=False), max_length=100)
+  confirm = forms.CharField(widget=forms.PasswordInput(render_value=False), max_length=100)
+  
 
 
 class StudentChangePasswordForm(forms.Form):
-    password = forms.CharField(widget = forms.PasswordInput(render_value = True), max_length = 100)
-
+	password = forms.CharField(widget=forms.PasswordInput(render_value=True), max_length=100)

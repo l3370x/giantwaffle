@@ -6,12 +6,20 @@
 
 html, body {
     height: 100%;
-	#background: rgb(20,50,50);
     font-family:'Helvetica', Arial, Verdana;
 }
 
 .djContent {
-    margin-top:80px;
+}
+
+.error {
+	color:#FF0000;
+}
+.required {
+	color:#FF0000;
+}
+.fieldWrapper {
+	margin-bottom:10px;
 }
 
 

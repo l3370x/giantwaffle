@@ -14,19 +14,24 @@
 <div class="topbar">
 <ul>
 <li class="tbHeader">{% block username %} {% endblock %}</li>
-
+<li class="tbHeader">GiantWaffle - Artemis Spaceship Bridge Simulator</li>
 </ul>
 </div>
 
 <div class="djContent">
 <div class="well sidebar-nav-fixed">
-{% block leftBar %}
 <ul>
 <a href="/home"><li class="leftBarLink">Home</li></a>
+{% if user.is_authenticated %}
 <a href="/auth/logout/"><li class="leftBarLink">Log Out</li></a>
+{% else %}
+<a href="/auth/login/"><li class="leftBarLink">Log In</li></a>
+<a href="/auth/create/"><li class="leftBarLink">Create Profile</li></a>
+{% endif %}
 <br>
 <a href="http://www.artemis.eochu.com/"><li class="leftBarLink">Artemis SBS Website</li></a>
 <a href="http://www.twitch.tv/giantwaffle"><li class="leftBarLink">GiantWaffle's Twitch</li></a>
+{% block leftBar %}
 {% endblock %}
 </div>
 

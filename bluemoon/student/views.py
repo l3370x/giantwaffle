@@ -13,11 +13,16 @@ from django.shortcuts import render
 from student.models import *
 from teacher.models import *
 from teacher.views import *
+from news.models import *
 
 def startPage(request):
 	if request.user.is_authenticated():
-		return studentHome(request)
+		return Home(request)
 	return login(request)
+
+def Home(request):
+	allNews = News.objects.all()
+	return render(request, 'home.html', {'allNews':allNews})
 
 def logout(request):
 	django.contrib.auth.logout(request)
@@ -44,17 +49,41 @@ def login(request):
 									  context_instance = RequestContext(request))
 		django.contrib.auth.login(request, user)
 		return student2Home(request, user)
+	
+def create(request):
+	d = {}
+	if request.method == 'GET':
+		form = django.contrib.auth.forms.UserCreationForm()
+		return render_to_response('student/create.html', {'form':form},
+								  context_instance = RequestContext(request))
 
-@login_required
-def studentHome(request):
-	try:
-		theStudent = Student.objects.get(user = request.user.id)
-	except Student.DoesNotExist:
-		return redirect('/', {})
-	myClasses = theStudent.classes.all()
-	return render(request, 'student/studentHome.html', {'theStudent':theStudent, 'myClasses':myClasses})
+	if request.method == 'POST':
+		form = django.contrib.auth.forms.UserCreationForm(request.POST)
+		if not form.is_valid():
+			return render_to_response('student/create.html', {'form':form},
+								  context_instance = RequestContext(request))
+
+		try:
+			u = User.objects.get(username = request.POST['username'])
+			d['error'] = 'Username already taken'
+			d['form'] = form
+			return render_to_response('student/create.html', d, context_instance = RequestContext(request))
+		except User.DoesNotExist:
+			pass
+
+
+		userO = form.save()
+		person = Student.objects.create(user = userO, twitchName = "",
+											skypeName = "",
+											email = "")
+		auth_user = authenticate(username=request.POST['username'],password=request.POST['password1'])
+		if auth_user is not None:
+			django.contrib.auth.login(request, auth_user)
+			return Home(request)
+		return render_to_response('student/create.html', d, context_instance = RequestContext(request))
+
 
 @login_required
 def student2Home(request, studentUser):
 	theStudent = Student.objects.get(user = studentUser.id)
-	return redirect('/student', {'theStudent':theStudent})
+	return redirect('/', {'theStudent':theStudent})

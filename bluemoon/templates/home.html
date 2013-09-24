@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block leftBar %}
+{% endblock %}
+
+{% block content %}
+<br>
+This is the home page!
+<br>
+
+News:
+{% for n in allNews %}
+<br>
+some news
+<br>
+{% endfor %}
+
+{% endblock %}
+
