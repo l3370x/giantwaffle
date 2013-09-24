@@ -1,19 +1,23 @@
 {% extends "base.html" %}
 
 {% block leftBar %}
+{% if user.is_authenticated %}
+<a href="/team/create/"><li class="leftBarLink">Create Team</li></a>
+<br>
+{% endif %}
 {% endblock %}
 
 {% block content %}
-<br>
-This is the home page!
-<br>
+<br>This is the home page!<br>
 
 News:
 {% for n in allNews %}
 <br>
-some news
+{{ n.user.username }}
+{{ n.timestamp }}
+{{ n.title }}
+{{ n.message }}
 <br>
 {% endfor %}
 
 {% endblock %}
-

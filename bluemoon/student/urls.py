@@ -3,6 +3,7 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('student.views',
 			url(r'^student/$', 'Home'),
 			url(r'^home/$', 'Home'),
+			url(r'^waffle/calendar/$', 'Calendar'),
 			url(r'^$', 'Home'),
 			url(r'^auth/login/$', 'login'),
 			url(r'^auth/logout/$', 'logout'),

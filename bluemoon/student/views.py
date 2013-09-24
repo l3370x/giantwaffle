@@ -14,6 +14,7 @@ from student.models import *
 from teacher.models import *
 from teacher.views import *
 from news.models import *
+import pytz
 
 def startPage(request):
 	if request.user.is_authenticated():
@@ -22,7 +23,27 @@ def startPage(request):
 
 def Home(request):
 	allNews = News.objects.all()
-	return render(request, 'home.html', {'allNews':allNews})
+	return render(request, 'home.html', {'allNews':allNews,'username':request.user.username})
+
+from django.utils import timezone
+
+class TimezoneMiddleware(object):
+    def process_request(self, request):
+        tz = request.session.get('django_timezone')
+        if tz:
+            timezone.activate(tz)
+        else:
+            timezone.deactivate()
+
+def Calendar(request):
+	if request.method == 'POST':
+		request.session['django_timezone'] = pytz.timezone(request.POST['timezone'])
+	tz = request.session.get('django_timezone')
+	if tz:
+			timezone.activate(tz)
+	tzout=str(tz).replace("/","%2F")
+	return render(request,'calendar.html',{'timezones': pytz.common_timezones,'tztext':tzout},)
+	
 
 def logout(request):
 	django.contrib.auth.logout(request)
@@ -81,8 +102,7 @@ def create(request):
 		if auth_user is not None:
 			django.contrib.auth.login(request, auth_user)
 			return Home(request)
-		d['user']=userO
-		d['person']=person
+		d['error']="There was a server error creating your username, please try again."
 		return render_to_response('student/create.html', d, context_instance = RequestContext(request))
 
 
