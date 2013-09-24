@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
-from course import models as mods
 
 
 class Student(models.Model):
@@ -13,7 +12,6 @@ class Student(models.Model):
   first_name = models.CharField(max_length = 50)
   last_name = models.CharField(max_length = 50)
   email = models.EmailField()
-  classes = models.ManyToManyField(mods.Class)
 
 class StudentForm(forms.ModelForm):
   class Meta:
