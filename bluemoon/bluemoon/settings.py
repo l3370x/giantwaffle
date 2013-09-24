@@ -10,10 +10,10 @@ if 'aaron' in ROOT_PATH:
 	basepath = '/home/aaron/schoolSite/kpms-carat'
 	locHost = True
 elif 'Aaron' in ROOT_PATH:
-	basepath = 'C:\Users\Aaron\Documents\GitHub\kpms-carat'
+	basepath = 'C:\Users\Aaron\workspaceWaffle\giantwaffle'
 	locHost = True
 else:
-	basepath = '/homepages/19/d429491612/htdocs/git/django'
+	basepath = '/homepages/19/d429491612/htdocs/giantwaffle'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -24,11 +24,11 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'db475444103',  # Or path to database file if using sqlite3.
+        'NAME': 'db492851746',  # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'dbo475444103',
-        'PASSWORD': 'calm1717',
-        'HOST': 'db475444103.db.1and1.com',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'USER': 'dbo492851746',
+        'PASSWORD': 'wafflepassword',
+        'HOST': 'db492851746.db.1and1.com',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '3306',  # Set to empty string for default.
     }
 }
@@ -106,7 +106,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'z!x51de4rtd5ou=*w*!%$1m(x&@h=*5k0yx$$=#5s8%0^w--ed'
+SECRET_KEY = 'z!x51df4rta5ou=*w*!%$1p(x&@h=*5k0yx$$=#5s8%0^w--ed'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -148,8 +148,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'student',
     'teacher',
-    'course',
-    'lesson',
 )
 
 

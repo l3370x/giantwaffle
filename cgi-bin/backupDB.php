@@ -1,6 +1,6 @@
 <?PHP
 
-backup_tables('db475444103.db.1and1.com','dbo475444103','calm1717','db475444103');
+backup_tables('db492851746.db.1and1.com','dbo492851746','wafflepassword','db492851746');
 
 
 /* backup the db OR just a table */
