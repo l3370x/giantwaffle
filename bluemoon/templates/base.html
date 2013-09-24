@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>KPMS - Richard's Kids</title>
+<title>GiantWaffle - Artemis Spaceship Bridge Simulator</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static "templates/style.css" %}" />
@@ -21,6 +21,10 @@
 <div class="djContent">
 <div class="well sidebar-nav-fixed">
 {% block leftBar %}
+<ul>
+<a href="/home"><li class="leftBarLink">Home</li></a>
+<a href="/auth/logout/"><li class="leftBarLink">Log Out</li></a>
+<br>
 {% endblock %}
 </div>
 

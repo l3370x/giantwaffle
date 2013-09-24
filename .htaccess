@@ -5,7 +5,7 @@ RewriteBase /
 # Exclude any paths that should be served literally:
 RewriteRule 	^static/		-			[L,NC]
 # Add a default page
-RewriteRule 	^$			student			[NC]
+RewriteRule 	^$			home			[NC]
 
 RewriteCond %{REQUEST_FILENAME} !(cgi-bin/bluemoon.fcgi) 
 RewriteRule 	^(.*)$ 			cgi-bin/bluemoon.fcgi/$1	[QSA,L]
