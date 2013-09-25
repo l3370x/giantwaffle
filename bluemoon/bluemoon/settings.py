@@ -150,6 +150,7 @@ INSTALLED_APPS = (
     'student',
     'team',
     'news',
+    'request',
 )
 
 

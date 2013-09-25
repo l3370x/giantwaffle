@@ -34,5 +34,20 @@ Engineering: {{ myTeam.helm }}
 <br>
 Comms: {{ myTeam.helm }}
 <br>
+<br>
+{% if teamLeader %}
+{% if requests %}
+Requests:
+<br>
+{% endif %}
+{% for r in requests %}
+{{ r.user.username }} wants to join.
+<form action="/team/allowJoin/" method="post">{% csrf_token %}
+<input type="hidden" name="user" value={{ r.fk_student.user.id }}>
+<input type="hidden" name="team" value={{ r.fk_team.id }}>
+<input type="submit" value="Allow"></form>
+<br>
+{% endfor %}
+{% endif %}
 
 {% endblock %}

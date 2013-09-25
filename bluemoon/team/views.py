@@ -9,7 +9,7 @@ from django.contrib.auth.models import User, Group
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
+from request.models import *
 from student.models import *
 
 @login_required
@@ -21,6 +21,14 @@ def teamDetails(request):
 		return render(request,'team/deleted.html',{})
 	team = stud.myTeam
 	teamLeader = stud == team.teamLeader
+	if teamLeader:
+		requests = Request.objects.filter(fk_team=team)
+		myRequests = []
+		for r in requests:
+			toAdd = Student.objects.filter(id=r.fk_student.id)
+			for rr in toAdd:
+				myRequests.append(rr)
+		return render(request,'team/home.html',{'myTeam':team,'teamLeader':teamLeader,'requests':myRequests})
 	return render(request,'team/home.html',{'myTeam':team,'teamLeader':teamLeader})
 
 @login_required
@@ -66,6 +74,7 @@ def joinTeamRequest(request):
 		d = {}
 		d['team']=team
 		d['stud']=stud
+		newR = Request.objects.create(fk_team=team,fk_student=stud)
 		return render(request,'team/requestSubmit.html',d)
 	if request.method == 'GET':
 		return allTeams(request)

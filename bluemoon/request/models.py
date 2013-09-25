@@ -1,3 +1,6 @@
 from django.db import models
+from student.models import *
 
-# Create your models here.
+class Request(models.Model):
+	fk_student = models.ForeignKey(Student, editable=False)
+	fk_team = models.ForeignKey(Team,editable=False)
