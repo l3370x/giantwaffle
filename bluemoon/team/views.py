@@ -210,7 +210,40 @@ def userDetails(request,username="noone"):
 	return render(request,'user/detail.html',{'stud':stud,'myself':myself})
 	
 	
-	
+from django.utils import simplejson as json
+from django.http import HttpResponse
+
+def do_update2(request):
+	resp = {}
+	what = request.GET['what']
+	user = User.objects.get(id=request.user.id)
+	stud = Student.objects.get(user=user)
+	resp['did']='False'
+	if what=='twitch':
+		stud.twitchName = request.GET['newValue1']
+		if(request.GET['newValue2'] == 'true'):
+			stud.hideTwitch = True
+		else:
+			stud.hideTwitch = False
+		stud.save()
+		resp['did']='True'
+	return HttpResponse(json.dumps(resp), content_type="application/json")
+
+def get_update_form(request):
+	resp = {}
+	what = request.GET['what']
+	user = User.objects.get(id=request.user.id)
+	stud = Student.objects.get(user=user)
+	if what == 'twitch':
+		formToAdd='<input id="in1" type="hidden" name="what" value="twitch">'\
+							'<p>Twitch Name: <input id="in2" type="input" name="newValue1" value="'+stud.twitchName+'"></p>'\
+							'<p>Hide Twitch Name? <input id="in3" type="checkbox" name="newValue2" value="'+str(stud.hideTwitch)+'"'
+		if stud.hideTwitch:
+			formToAdd += "checked"
+		formToAdd += '></p><p><input type="submit" value="Update Twitch" onClick="doUpdate()"></p>'
+		resp['formToAdd']=formToAdd
+	return HttpResponse(json.dumps(resp), content_type="application/json")
+
 def updateTwitch(request,user,stud):
 	return render(request,"debug.html")
 

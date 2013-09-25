@@ -11,6 +11,58 @@
 {% endif %}
 {% endblock %}
 
+{% block extraHeader %}
+<script type="text/javascript">
+function showMessage(msg,csrfIn) {
+	var text = ""
+	$.getJSON("{% url "get_update_form" %}", { what: msg, csrf: csrfIn }, function(something) {
+        text = something.formToAdd;
+    	if (msg == 'twitch'){
+    		document.getElementById('twitchEdit').innerHTML = text;
+    	}
+        if (msg == 'skype'){
+    		document.getElementById('skypeEdit').innerHTML = text;
+    	}
+        if (msg == 'email'){
+    		document.getElementById('emailEdit').innerHTML = text;
+    	}
+    });
+};
+function doUpdate() {
+	what = document.getElementById('in1').value
+	newValue1 = document.getElementById('in2').value
+	newValue2 = document.getElementById('in3').checked
+	$.getJSON("{% url "do_update" %}", { what: what, newValue1: newValue1, newValue2: newValue2}, function(something) {
+        if (what == 'twitch'){
+    		document.getElementById('twitchEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('twitch');\" />";
+    		if(newValue2 == true ) {
+    			document.getElementById('twitchText').innerHTML = "Twitch Username - *****";
+    		} else  {
+    			document.getElementById('twitchText').innerHTML = "Twitch Username - " + newValue1;
+    		}
+    	}
+        if (what == 'skype'){
+        	document.getElementById('skypeEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('sype');\" />";
+    		if(newValue2 == true ) {
+    			document.getElementById('skypeText').innerHTML = "Skype Username - *****";
+    		} else  {
+    			document.getElementById('skypeText').innerHTML = "Skype Username - " + newValue1;
+    		}
+    	}
+        if (what == 'email'){
+        	document.getElementById('emailEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('email');\" />";
+    		if(newValue2 == true ) {
+    			document.getElementById('emailText').innerHTML = "Twitch Username - *****";
+    		} else  {
+    			document.getElementById('emailText').innerHTML = "Twitch Username - " + newValue1;
+    		}
+    	}
+    });
+};
+</script>
+{% endblock %}
+
+
 {% block content %}
 Home page for {{ stud.user.username }}.<br><br>
 {% if myself %}
@@ -22,31 +74,25 @@ Here you can view a user's info if they have it set to visible.
 <br>
 Team - <a href="/team/details/{{ stud.myTeam.name }}">{{ stud.myTeam.name }}</a>
 <br>
-Twitch Username - {% if stud.hideTwitch %}*****{% else %}{{ stud.twitchName }}{% endif %}
+<div id="twitchText">Twitch Username - {% if stud.hideTwitch %}*****{% else %}{{ stud.twitchName }}{% endif %}</div>
 {% if myself %}
-<form action="/user/updateProfile/">
-{% csrf_token %}
-<input type="hidden" name="what" value="twitch"/>
-<input type="submit" value="Change Twitch Name" />
-</form>
+<div id="twitchEdit">
+<input type="button" value="Edit" onclick="showMessage('twitch','{{ csrf_token }}');" />
+</div>
 {% endif %}
 <br>
-Skpye Username - {% if stud.hideSkpye %}*****{% else %}{{ stud.skypeName }}{% endif %}
+<div id="skypeText">Skpye Username - {% if stud.hideSkpye %}*****{% else %}{{ stud.skypeName }}{% endif %}</div>
 {% if myself %}
-<form action="/user/updateProfile/">
-{% csrf_token %}
-<input type="hidden" name="what" value="skype"/>
-<input type="submit" value="Change Skype Name" />
-</form>
+<div id="skypeEdit">
+<input type="button" value="Edit" onclick="showMessage('skype','{{ csrf_token }}');" />
+</div>
 {% endif %}
 <br>
-email - {% if stud.hideEmail %}*****{% else %}{{ stud.email }}{% endif %}
+<div id="emailText">E-mail - {% if stud.hideEmail %}*****{% else %}{{ stud.email }}{% endif %}</div>
 {% if myself %}
-<form action="/user/updateProfile/">
-{% csrf_token %}
-<input type="hidden" name="what" value="email"/>
-<input type="submit" value="Change E-mail" />
-</form>
+<div id="emailEdit">
+<input type="button" value="Edit" onclick="showMessage('email','{{ csrf_token }}');" />
+</div>
 {% endif %}
 <br>
 {% endblock %}
