@@ -13,18 +13,24 @@
 
 {% block extraHeader %}
 <script type="text/javascript">
-function showMessage(msg,csrfIn) {
+function showMessage(msg) {
 	var text = ""
-	$.getJSON("{% url "get_update_form" %}", { what: msg, csrf: csrfIn }, function(something) {
+	$.getJSON("{% url "get_update_form" %}", { what: msg }, function(something) {
         text = something.formToAdd;
-    	if (msg == 'twitch'){
+    	if (msg == "twitch"){
     		document.getElementById('twitchEdit').innerHTML = text;
+    		document.getElementById('skypeEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('skype');\" />";
+    		document.getElementById('emailEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('email');\" />";
     	}
-        if (msg == 'skype'){
+        if (msg == "skype"){
     		document.getElementById('skypeEdit').innerHTML = text;
+    		document.getElementById('twitchEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('twitch');\" />";
+    		document.getElementById('emailEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('email');\" />";
     	}
-        if (msg == 'email'){
+        if (msg == "email"){
     		document.getElementById('emailEdit').innerHTML = text;
+    		document.getElementById('twitchEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('twitch');\" />";
+    		document.getElementById('skypeEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('skype');\" />";
     	}
     });
 };
@@ -42,7 +48,7 @@ function doUpdate() {
     		}
     	}
         if (what == 'skype'){
-        	document.getElementById('skypeEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('sype');\" />";
+        	document.getElementById('skypeEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('skype');\" />";
     		if(newValue2 == true ) {
     			document.getElementById('skypeText').innerHTML = "Skype Username - *****";
     		} else  {
@@ -52,9 +58,9 @@ function doUpdate() {
         if (what == 'email'){
         	document.getElementById('emailEdit').innerHTML = "<input type=\"button\" value=\"Edit\" onclick=\"showMessage('email');\" />";
     		if(newValue2 == true ) {
-    			document.getElementById('emailText').innerHTML = "Twitch Username - *****";
+    			document.getElementById('emailText').innerHTML = "E-mail - *****";
     		} else  {
-    			document.getElementById('emailText').innerHTML = "Twitch Username - " + newValue1;
+    			document.getElementById('emailText').innerHTML = "E-mail - " + newValue1;
     		}
     	}
     });
@@ -77,21 +83,21 @@ Team - <a href="/team/details/{{ stud.myTeam.name }}">{{ stud.myTeam.name }}</a>
 <div id="twitchText">Twitch Username - {% if stud.hideTwitch %}*****{% else %}{{ stud.twitchName }}{% endif %}</div>
 {% if myself %}
 <div id="twitchEdit">
-<input type="button" value="Edit" onclick="showMessage('twitch','{{ csrf_token }}');" />
+<input type="button" value="Edit" onclick="showMessage('twitch');" />
 </div>
 {% endif %}
 <br>
-<div id="skypeText">Skpye Username - {% if stud.hideSkpye %}*****{% else %}{{ stud.skypeName }}{% endif %}</div>
+<div id="skypeText">Skype Username - {% if stud.hideSkpye %}*****{% else %}{{ stud.skypeName }}{% endif %}</div>
 {% if myself %}
 <div id="skypeEdit">
-<input type="button" value="Edit" onclick="showMessage('skype','{{ csrf_token }}');" />
+<input type="button" value="Edit" onclick="showMessage('skype');" />
 </div>
 {% endif %}
 <br>
 <div id="emailText">E-mail - {% if stud.hideEmail %}*****{% else %}{{ stud.email }}{% endif %}</div>
 {% if myself %}
 <div id="emailEdit">
-<input type="button" value="Edit" onclick="showMessage('email','{{ csrf_token }}');" />
+<input type="button" value="Edit" onclick="showMessage('email');" />
 </div>
 {% endif %}
 <br>

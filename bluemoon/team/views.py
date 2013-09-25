@@ -121,7 +121,8 @@ def showTeam(request,team="00000000101"):
 			pass
 		except Student.DoesNotExist:
 			pass
-		return render(request,'team/home.html',{'myTeam':theTeam})
+		teamMembers = Student.objects.filter(myTeam=theTeam)
+		return render(request,'team/home.html',{'myTeam':theTeam,'teamMembers':teamMembers})
 	except Team.DoesNotExist:
 		return render(request,'team/noTeam.html',{'noTeam':team})
 	
@@ -218,7 +219,6 @@ def do_update2(request):
 	what = request.GET['what']
 	user = User.objects.get(id=request.user.id)
 	stud = Student.objects.get(user=user)
-	resp['did']='False'
 	if what=='twitch':
 		stud.twitchName = request.GET['newValue1']
 		if(request.GET['newValue2'] == 'true'):
@@ -226,7 +226,20 @@ def do_update2(request):
 		else:
 			stud.hideTwitch = False
 		stud.save()
-		resp['did']='True'
+	if what=='skype':
+		stud.skypeName = request.GET['newValue1']
+		if(request.GET['newValue2'] == 'true'):
+			stud.hideSkype = True
+		else:
+			stud.hideSkype = False
+		stud.save()
+	if what=='email':
+		stud.email = request.GET['newValue1']
+		if(request.GET['newValue2'] == 'true'):
+			stud.hideEmail = True
+		else:
+			stud.hideEmail = False
+		stud.save()
 	return HttpResponse(json.dumps(resp), content_type="application/json")
 
 def get_update_form(request):
@@ -241,6 +254,22 @@ def get_update_form(request):
 		if stud.hideTwitch:
 			formToAdd += "checked"
 		formToAdd += '></p><p><input type="submit" value="Update Twitch" onClick="doUpdate()"></p>'
+		resp['formToAdd']=formToAdd
+	if what == 'skype':
+		formToAdd='<input id="in1" type="hidden" name="what" value="skype">'\
+							'<p>Skype Name: <input id="in2" type="input" name="newValue1" value="'+stud.skypeName+'"></p>'\
+							'<p>Hide Skype Name? <input id="in3" type="checkbox" name="newValue2" value="'+str(stud.hideSkype)+'"'
+		if stud.hideSkype:
+			formToAdd += "checked"
+		formToAdd += '></p><p><input type="submit" value="Update Skype" onClick="doUpdate()"></p>'
+		resp['formToAdd']=formToAdd
+	if what == 'email':
+		formToAdd='<input id="in1" type="hidden" name="what" value="email">'\
+							'<p>E-Mail: <input id="in2" type="input" name="newValue1" value="'+stud.email+'"></p>'\
+							'<p>Hide E-mail? <input id="in3" type="checkbox" name="newValue2" value="'+str(stud.hideEmail)+'"'
+		if stud.hideEmail:
+			formToAdd += "checked"
+		formToAdd += '></p><p><input type="submit" value="Update Email" onClick="doUpdate()"></p>'
 		resp['formToAdd']=formToAdd
 	return HttpResponse(json.dumps(resp), content_type="application/json")
 
