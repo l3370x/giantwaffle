@@ -6,23 +6,15 @@
 <a href="/team/create/"><li class="leftBarLink">Create Team</li></a>
 <a href="/team/all/"><li class="leftBarLink">Join Team</li></a>
 {% else %}
-<a href="/team/home/"><li class="leftBarLink">My Team Page</li></a>
+{% if teamLeader %}
+<a href="/team/delete/"><li class="leftBarLink">Delete Team</li></a>
+{% endif %}
 {% endif %}
 <br>
 {% endif %}
 {% endblock %}
 
 {% block content %}
-<br>This is the home page!<br>
-
-News:
-{% for n in allNews %}
-<br>
-{{ n.user.username }}
-{{ n.timestamp }}
-{{ n.title }}
-{{ n.message }}
-<br>
-{% endfor %}
+You have successfully submit a request to join the team {{ team.name }}.
 
 {% endblock %}

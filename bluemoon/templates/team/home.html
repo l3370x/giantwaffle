@@ -2,7 +2,13 @@
 
 {% block leftBar %}
 {% if user.is_authenticated %}
+{% if myTeam %}
+{% if teamLeader %}
 <a href="/team/delete/"><li class="leftBarLink">Delete Team</li></a>
+{% endif %}
+{% else %}
+<a href="/team/all/"><li class="leftBarLink">Join Team</li></a>
+{% endif %}
 <br>
 {% endif %}
 {% endblock %}
@@ -12,21 +18,21 @@
 
 
 <br>
-Team Leader: {{ team.teamLeader.user.username }}
+Team Leader: {{ myTeam.teamLeader.user.username }}
 <br>
-Name: {{ team.name }}
+Name: {{ myTeam.name }}
 <br>
-Captain: {{ team.captain }}
+Captain: {{ myTeam.captain }}
 <br>
-Helm: {{ team.helm }}
+Helm: {{ myTeam.helm }}
 <br>
-Weapons: {{ team.weapons }}
+Weapons: {{ myTeam.weapons }}
 <br>
-Science: {{ team.helm }}
+Science: {{ myTeam.helm }}
 <br>
-Engineering: {{ team.helm }}
+Engineering: {{ myTeam.helm }}
 <br>
-Comms: {{ team.helm }}
+Comms: {{ myTeam.helm }}
 <br>
 
 {% endblock %}

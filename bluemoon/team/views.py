@@ -20,7 +20,8 @@ def teamDetails(request):
 		stud.myTeam = None
 		return render(request,'team/deleted.html',{})
 	team = stud.myTeam
-	return render(request,'team/home.html',{'team':team})
+	teamLeader = stud == team.teamLeader
+	return render(request,'team/home.html',{'myTeam':team,'teamLeader':teamLeader})
 
 @login_required
 def teamDelete(request):
@@ -30,15 +31,46 @@ def teamDelete(request):
 		return render(request,'team/deleted.html',{})
 	team = stud.myTeam
 	if team.teamLeader == stud:
-		ss = Student.objects.filter(myTeam=team)
-		for s in ss:
-			s.myTeam = None
 		team.delete()
 		noTeam = True
 		return render(request,'team/deleted.html',{'noTeam':noTeam})
 	return teamDetails(request)
-		
-		
+
+def allTeams(request):
+	d = {}
+	d['teams']=Team.objects.all()
+	try:
+		stud = Student.objects.get(user=request.user.id)
+	except Student.DoesNotExist:
+		#NOT LOGGED IN
+		d['loggedIn']=False
+		return render(request,'team/all.html',d)
+	noTeam = stud.myTeam is None
+	if noTeam:
+		d['loggedIn']=True
+		d['noTeam']=True
+		d['teamLeader']=False
+		d['me']=stud
+		return render(request,'team/all.html',d)
+	d['loggedIn']=True
+	d['noTeam']=False
+	d['teamLeader']=stud == stud.myTeam.teamLeader
+	return render(request,'team/all.html',d)
+
+@login_required
+def joinTeamRequest(request):
+	if request.method == 'POST':
+		team = Team.objects.get(id=request.POST['team'])
+		user = User.objects.get(id=request.POST['user'])
+		stud = Student.objects.get(user=user)
+		d = {}
+		d['team']=team
+		d['stud']=stud
+		return render(request,'team/requestSubmit.html',d)
+	if request.method == 'GET':
+		return allTeams(request)
+
+@login_required
 def create(request):
 	d = {}
 	if request.method == 'GET':
