@@ -61,6 +61,11 @@ class Team(models.Model):
 class TeamForm(forms.ModelForm):
 	class Meta:
 		model = Team
+		
+class HelpForm(forms.Form):
+	replyEmail=forms.EmailField(label="E-Mail for dev to reply to")
+	subject=forms.CharField(label="Subject")
+	question=forms.CharField(widget=forms.Textarea,label="Message")
 
 class CreateTeamForm(forms.Form):
    teamName = forms.CharField(max_length=50,label="Team Name")

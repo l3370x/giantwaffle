@@ -2,6 +2,8 @@
 
 {% block content %}
 
+In order to create or join teams on this site, you must login to this site.
+
 <form action="/student/auth/login/" method="post" class="login">
 {% csrf_token %}
 {% if error %}<p><i>{{ error }}</i></p>{% endif %}
@@ -20,6 +22,8 @@
     <label>&nbsp;</label><input type="submit" value="Log in" />
   </div>
 </form>
+
+If you don't have a username, you must <a href="/auth/create/">create</a> one.
 
 {% endblock %}
 

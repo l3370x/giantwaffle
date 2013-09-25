@@ -13,5 +13,6 @@ urlpatterns = patterns('',
 	url(r'^user/', include('team.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('student.urls')),
 	url(r'^', include('student.urls')),
 )

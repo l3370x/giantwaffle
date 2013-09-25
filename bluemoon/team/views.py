@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from request.models import *
 from student.models import *
+from news.models import *
 
 @login_required
 def leave(request):
@@ -174,9 +175,13 @@ def userDetails(request,username="noone"):
 	
 @login_required
 def create(request):
+	user = User.objects.get(id=request.user.id)
 	d = {}
 	if request.method == 'GET':
 		form = CreateTeamForm()
+		stud = Student.objects.get(user=user)
+		if stud.myTeam != None:
+			return render(request,'team/alreadyHaveTeam.html',{'myTeam':stud.myTeam})
 		return render_to_response('team/create.html',{'form':form},context_instance = RequestContext(request))
 	if request.method == 'POST':
 		form = CreateTeamForm(request.POST)
@@ -189,10 +194,11 @@ def create(request):
 			return render_to_response('team/create.html', d, context_instance = RequestContext(request))
 		except Team.DoesNotExist:
 			pass
-		
 		currentStud = Student.objects.get(user=request.user.id)
 		newTeam = Team.objects.create(teamLeader=currentStud,name=request.POST['teamName'],captain="",helm="",weapons="",science="",engineering='',comms='')
 		currentStud.myTeam = newTeam
 		currentStud.save()
 		d['myTeam']=newTeam
+		newNews = News.objects.create(user=user,title="New Team Created",
+									message="Welcome "+newTeam.name+" to the GiantWaffle Artemis SBS Website.")
 		return render(request,'team/createSuccess.html',d)

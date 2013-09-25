@@ -116,6 +116,22 @@ def create(request):
 		return render_to_response('student/create.html', d, context_instance = RequestContext(request))
 
 
+from django.core.mail import send_mail
+
+def submitQuestion(request):
+	d = {}
+	if request.method == "GET":
+		form = HelpForm()
+		d['form']=form
+		return render(request,'help.html',d)
+	if request.method == "POST":
+		form = HelpForm(request.POST)
+		if not form.is_valid():
+			return render(request,'help.html',d)
+	send_mail(request.POST['subject'], request.POST['question'], request.POST['replyEmail'],
+    ['l3370x@gmail.com'], fail_silently=False)
+	return render(request,'helpThanks.html',d)
+
 @login_required
 def student2Home(request, studentUser):
 	theStudent = Student.objects.get(user = studentUser.id)

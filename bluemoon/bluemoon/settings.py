@@ -1,4 +1,6 @@
 # Django settings for bluemoon project.
+from django.conf.global_settings import EMAIL_HOST, EMAIL_HOST_USER,\
+	EMAIL_HOST_PASSWORD, EMAIL_PORT
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -153,6 +155,10 @@ INSTALLED_APPS = (
     'request',
 )
 
+EMAIL_HOST = "smtp.1and1.com"
+EMAIL_HOST_USER = "aaron@bluemoonscience.com"
+EMAIL_HOST_PASSWORD = "bluemoonpassword"
+EMAIL_PORT = "25"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

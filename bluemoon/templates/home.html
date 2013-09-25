@@ -13,9 +13,18 @@
 {% endblock %}
 
 {% block content %}
-<br>This is the home page!<br>
-
-News:
+<br>Welcome to GiantWaffle's Artemis SBS tounament building website.  You can <a href="/team/all/">view all the teams</a> that have 
+been created, or <a href="/team/create/">create</a> your own team.
+<br>
+<br>
+You can view a <a href="/waffle/calendar/">calendar</a> of upcomming Artemis SBS tournamet events.  Remember to select your own timezone.
+<br>
+<br>
+Please, only create or join teams if you are planning on playing online with your team.  If you are not going to buy the game, but are curious
+about the teams, feel free to check out all the teams, or look at the calendar.
+<br>
+<br>
+Recent Activity:
 {% for n in allNews %}
 <br>
 {{ n.user.username }}
