@@ -13,14 +13,40 @@
 
 {% block content %}
 Home page for {{ stud.user.username }}.<br><br>
-Here you can view a user's info if they have it set to visible.<br><br>
+{% if myself %}
+This is what your profile looks like to others.  You may change any of the settings below.
+{% else %}
+Here you can view a user's info if they have it set to visible.
+{% endif %}
+<br><br>
 <br>
 Team - <a href="/team/details/{{ stud.myTeam.name }}">{{ stud.myTeam.name }}</a>
 <br>
 Twitch Username - {% if stud.hideTwitch %}*****{% else %}{{ stud.twitchName }}{% endif %}
+{% if myself %}
+<form action="/user/updateProfile/">
+{% csrf_token %}
+<input type="hidden" name="what" value="twitch"/>
+<input type="submit" value="Change Twitch Name" />
+</form>
+{% endif %}
 <br>
 Skpye Username - {% if stud.hideSkpye %}*****{% else %}{{ stud.skypeName }}{% endif %}
+{% if myself %}
+<form action="/user/updateProfile/">
+{% csrf_token %}
+<input type="hidden" name="what" value="skype"/>
+<input type="submit" value="Change Skype Name" />
+</form>
+{% endif %}
 <br>
 email - {% if stud.hideEmail %}*****{% else %}{{ stud.email }}{% endif %}
+{% if myself %}
+<form action="/user/updateProfile/">
+{% csrf_token %}
+<input type="hidden" name="what" value="email"/>
+<input type="submit" value="Change E-mail" />
+</form>
+{% endif %}
 <br>
 {% endblock %}

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{% static "templates/style.css" %}" />
 {% block extraHeader %}
 {% endblock %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -27,8 +28,8 @@
 {% if user.is_authenticated %}
 <a href="/auth/logout/"><li class="leftBarLink">Log Out</li></a>
 <br>
-<a href="/user/mySettings/"><li class="leftBarLink">Edit My Settings</li></a>
-<br>
+<a href="/user/myProfile/"><li class="leftBarLink">My Profile</li></a>
+
 {% else %}
 <a href="/auth/login/"><li class="leftBarLink">Log In</li></a>
 <a href="/auth/create/"><li class="leftBarLink">Create Profile</li></a>

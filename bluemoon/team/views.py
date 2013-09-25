@@ -187,48 +187,46 @@ def joinTeamRequest(request):
 		return allTeams(request)
 
 @login_required
+def myProfile(request):
+	try:
+		user = User.objects.get(id=request.user.id)
+		stud = Student.objects.get(user=user)
+	except User.DoesNotExist:
+		return render(request,'user/noone.html',{'fakename':"unknown"})
+	except Student.DoesNotExist:
+		return render(request,'user/noone.html',{'fakename':"unknown"})
+	return userDetails(request,user.username)
+
+@login_required
 def userDetails(request,username="noone"):
 	try:
 		user = User.objects.get(username=username)
 	except User.DoesNotExist:
 		return render(request,'user/noone.html',{'fakename':username})
 	stud = Student.objects.get(user=user)
-	return render(request,'user/detail.html',{'stud':stud})
+	myself = False
+	if request.user.id==user.id:
+		myself = True
+	return render(request,'user/detail.html',{'stud':stud,'myself':myself})
 	
 	
+	
+def updateTwitch(request,user,stud):
+	return render(request,"debug.html")
+
 @login_required
 def editSettings(request):
+	d = {}
 	user = User.objects.get(id=request.user.id)
 	stud = Student.objects.get(user=user)
-	d = {}
-	if request.method == 'GET':
-		form = EditUserForm(initial=request.GET)
-		
-		return render_to_response('user/edit.html', {'form':form},
-								  context_instance = RequestContext(request))
-
-	if request.method == 'POST':
-		form = EditUserForm(request.POST)
-		if not form.is_valid():
-			return render_to_response('user/edit.html', {'form':form},
-								  context_instance = RequestContext(request))
-
-		
-		if len(request.POST['twitchName'])>0:
-			stud.twitchName = request.POST['twitchName']
-		if len(request.POST['skypeName'])>0:
-			stud.skypeName = request.POST['skypeName']
-		if len(request.POST['email'])>0:
-			stud.email = request.POST['email']
-		if len(request.POST['hideTwitch'])>0:
-			stud.hideTwitch = request.POST['hideTwitch']
-		if len(request.POST['hideEmail'])>0:
-			stud.hideEmail = request.POST['hideEmail']
-		if len(request.POST['hideSkype'])>0:
-			stud.hideSkype = request.POST['hideSkype']
-		stud.save()
-		
-		return render_to_response('user/'+str(user.username), d, context_instance = RequestContext(request))
+	what = request.GET['what']
+	if what == "twitch":
+		return updateTwitch(request,user,stud)
+	d['user']=user
+	d['stud']=stud
+	d['what']=what
+	
+	return render(request,"debug.html",d)
 	
 	
 @login_required
