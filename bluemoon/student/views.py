@@ -21,7 +21,7 @@ def startPage(request):
 	return login(request)
 
 def Home(request):
-	allNews = News.objects.all()
+	allNews = News.objects.all().order_by('-timestamp')[:8]
 	try:
 		stud = Student.objects.get(user=request.user.id)
 		noTeam = stud.myTeam is None
