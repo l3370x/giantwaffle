@@ -4,7 +4,8 @@
 {% if user.is_authenticated %}
 {% if myTeam %}
 {% if teamLeader %}
-<a href="/team/delete/"><li class="leftBarLink">Delete Team</li></a>
+<a href="/team/home/"><li class="leftBarLink">My Team Page</li></a>
+<a href="/team/delete/"><li class="leftBarLink">Delete My Team</li></a>
 {% endif %}
 {% else %}
 <a href="/team/all/"><li class="leftBarLink">Join Team</li></a>
@@ -43,8 +44,8 @@ Requests:
 {% for r in requests %}
 {{ r.user.username }} wants to join.
 <form action="/team/allowJoin/" method="post">{% csrf_token %}
-<input type="hidden" name="user" value={{ r.fk_student.user.id }}>
-<input type="hidden" name="team" value={{ r.fk_team.id }}>
+<input type="hidden" name="user" value={{ r.user.id }}>
+<input type="hidden" name="team" value={{ myTeam.id }}>
 <input type="submit" value="Allow"></form>
 <br>
 {% endfor %}

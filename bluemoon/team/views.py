@@ -13,6 +13,26 @@ from request.models import *
 from student.models import *
 
 @login_required
+def allowJoinTeamRequest(request):
+	if request.method == 'POST':
+		team = Team.objects.get(id=request.POST['team'])
+		user = User.objects.get(id=request.POST['user'])
+		stud = Student.objects.get(user=user)
+		if Student.objects.get(user=request.user.id).myTeam != team:
+			return allTeams(request)
+		d = {}
+		d['team']=team
+		d['stud']=stud
+		stud.myTeam = team
+		stud.save()
+		reqs = Request.objects.filter(fk_student=stud)
+		for r in reqs:
+			r.delete()
+		return render(request,'team/requestAccepted.html',d)
+	if request.method == 'GET':
+		return allTeams(request)
+
+@login_required
 def teamDetails(request):
 	stud = Student.objects.get(user=request.user.id)
 	noTeam = stud.myTeam is None
@@ -33,6 +53,12 @@ def teamDetails(request):
 
 @login_required
 def teamDelete(request):
+	stud = Student.objects.get(user=request.user.id)
+	noTeam = stud.myTeam is None
+	return render(request,'team/confirmDelete.html',{'noTeam':noTeam})
+
+@login_required
+def teamDeleteReal(request):
 	stud = Student.objects.get(user=request.user.id)
 	noTeam = stud.myTeam is None
 	if noTeam:
