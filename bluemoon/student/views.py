@@ -11,8 +11,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from student.models import *
-from teacher.models import *
-from teacher.views import *
 from news.models import *
 import pytz
 
@@ -23,7 +21,13 @@ def startPage(request):
 
 def Home(request):
 	allNews = News.objects.all()
-	return render(request, 'home.html', {'allNews':allNews,'username':request.user.username})
+	try:
+		stud = Student.objects.get(user=request.user.id)
+		noTeam = stud.myTeam is None
+		return render(request, 'home.html', {'allNews':allNews,'username':request.user.username,'noTeam':noTeam})
+	except Student.DoesNotExist:
+		pass
+	return render(request,'home.html',{'allNews':allNews,'username':request.user.username})
 
 from django.utils import timezone
 

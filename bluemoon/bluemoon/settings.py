@@ -148,7 +148,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'student',
-    'teacher',
+    'team',
     'news',
 )
 
