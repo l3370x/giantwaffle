@@ -26,6 +26,9 @@
 <a href="/home"><li class="leftBarLink">Home</li></a>
 {% if user.is_authenticated %}
 <a href="/auth/logout/"><li class="leftBarLink">Log Out</li></a>
+<br>
+<a href="/user/mySettings/"><li class="leftBarLink">Edit My Settings</li></a>
+<br>
 {% else %}
 <a href="/auth/login/"><li class="leftBarLink">Log In</li></a>
 <a href="/auth/create/"><li class="leftBarLink">Create Profile</li></a>

@@ -15,6 +15,10 @@ from news.models import *
 
 @login_required
 def leave(request):
+	user = User.objects.get(username=request.user)
+	stud = Student.objects.get(user=user)
+	if stud.myTeam.teamLeader == stud:
+		return render(request,'team/leaderLeave.html',{})
 	return render(request,'team/confirmLeave.html',{})
 
 @login_required
@@ -90,7 +94,7 @@ def teamDetails(request):
 	noTeam = stud.myTeam is None
 	if noTeam:
 		stud.myTeam = None
-		return render(request,'team/deleted.html',{})
+		return render(request,'team/myNoTeam.html',{})
 	team = stud.myTeam
 	teamLeader = stud == team.teamLeader
 	if teamLeader:
@@ -102,7 +106,25 @@ def teamDetails(request):
 				myRequests.append(rr)
 		teamMembers = Student.objects.filter(myTeam=team)
 		return render(request,'team/home.html',{'myTeam':team,'teamLeader':teamLeader,'requests':myRequests,'teamMembers':teamMembers})
-	return render(request,'team/home.html',{'myTeam':team,'teamLeader':teamLeader})
+	teamMembers = Student.objects.filter(myTeam=team)
+	return render(request,'team/home.html',{'myTeam':team,'teamLeader':teamLeader,'teamMembers':teamMembers})
+
+def showTeam(request,team="00000000101"):
+	try:
+		theTeam = Team.objects.get(name=team)
+		try:
+			user = User.objects.get(id=request.user.id)
+			stud = Student.objects.get(user=user)
+			if stud.myTeam == theTeam:
+				return teamDetails(request)
+		except User.DoesNotExist:
+			pass
+		except Student.DoesNotExist:
+			pass
+		return render(request,'team/home.html',{'myTeam':theTeam})
+	except Team.DoesNotExist:
+		return render(request,'team/noTeam.html',{'noTeam':team})
+	
 
 @login_required
 def teamDelete(request):
@@ -172,6 +194,42 @@ def userDetails(request,username="noone"):
 		return render(request,'user/noone.html',{'fakename':username})
 	stud = Student.objects.get(user=user)
 	return render(request,'user/detail.html',{'stud':stud})
+	
+	
+@login_required
+def editSettings(request):
+	user = User.objects.get(id=request.user.id)
+	stud = Student.objects.get(user=user)
+	d = {}
+	if request.method == 'GET':
+		form = EditUserForm(initial=request.GET)
+		
+		return render_to_response('user/edit.html', {'form':form},
+								  context_instance = RequestContext(request))
+
+	if request.method == 'POST':
+		form = EditUserForm(request.POST)
+		if not form.is_valid():
+			return render_to_response('user/edit.html', {'form':form},
+								  context_instance = RequestContext(request))
+
+		
+		if len(request.POST['twitchName'])>0:
+			stud.twitchName = request.POST['twitchName']
+		if len(request.POST['skypeName'])>0:
+			stud.skypeName = request.POST['skypeName']
+		if len(request.POST['email'])>0:
+			stud.email = request.POST['email']
+		if len(request.POST['hideTwitch'])>0:
+			stud.hideTwitch = request.POST['hideTwitch']
+		if len(request.POST['hideEmail'])>0:
+			stud.hideEmail = request.POST['hideEmail']
+		if len(request.POST['hideSkype'])>0:
+			stud.hideSkype = request.POST['hideSkype']
+		stud.save()
+		
+		return render_to_response('user/'+str(user.username), d, context_instance = RequestContext(request))
+	
 	
 @login_required
 def create(request):

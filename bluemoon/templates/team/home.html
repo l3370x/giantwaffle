@@ -13,17 +13,20 @@
 <a href="/team/all/"><li class="leftBarLink">Join Team</li></a>
 {% endif %}
 <br>
+<a href="/user/mySettings/"><li class="leftBarLink">Edit My Settings</li></a>
 {% endif %}
 {% endblock %}
 
 {% block content %}
-<br>This is the team page!<br>
+<br>Team - {{ myTeam.name }}!<br>
+<br>Here you can view information about your team.  Only the team leader can add people to the team and 
+assign people to different positions.<br>
 
 
 <br>
 Team Leader: {{ myTeam.teamLeader.user.username }}
 <br>
-Name: {{ myTeam.name }}
+
 <br>
 {% if teamLeader %}
 <form action="/team/update/" method="post">{% csrf_token %}
@@ -144,6 +147,7 @@ Requests:
 {% else %}
 You have no Requests at this time.
 {% endif %}
+{% endif %}
 <br>
 <br>
 Team Members:
@@ -155,6 +159,6 @@ Team Members:
 {% else %}
 You have no team members at this time.
 {% endif %}
-{% endif %}
+
 
 {% endblock %}

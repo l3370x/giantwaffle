@@ -12,20 +12,15 @@
 {% endblock %}
 
 {% block content %}
-Home page for {{ stud.user.username }}
+Home page for {{ stud.user.username }}.<br><br>
+Here you can view a user's info if they have it set to visible.<br><br>
 <br>
-Team - {{ stud.myTeam.name }}
+Team - <a href="/team/details/{{ stud.myTeam.name }}">{{ stud.myTeam.name }}</a>
 <br>
-{% if stud.hideTwitch %}
-Twitch Username - {{ stud.twitchName }}
+Twitch Username - {% if stud.hideTwitch %}*****{% else %}{{ stud.twitchName }}{% endif %}
 <br>
-{% endif %}
-{% if stud.hideSkpye %}
-Skpye Username - {{ stud.skypeName }}
+Skpye Username - {% if stud.hideSkpye %}*****{% else %}{{ stud.skypeName }}{% endif %}
 <br>
-{% endif %}
-{% if stud.hideEmail %}
-email - {{ stud.email }}
+email - {% if stud.hideEmail %}*****{% else %}{{ stud.email }}{% endif %}
 <br>
-{% endif %}
 {% endblock %}

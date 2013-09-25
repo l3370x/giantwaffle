@@ -9,6 +9,7 @@ from django.contrib.auth.models import User, Group
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.core.mail import send_mail
 
 from student.models import *
 from news.models import *
@@ -116,7 +117,6 @@ def create(request):
 		return render_to_response('student/create.html', d, context_instance = RequestContext(request))
 
 
-from django.core.mail import send_mail
 
 def submitQuestion(request):
 	d = {}

@@ -20,10 +20,13 @@
 {% block content %}
 {% if teams %}
 {% for team in teams %}
+<a class="teamLink" href="/team/details/{{ team.name }}">
+<br>
+{{ team.name }}
+</a>
 <br>
 Team Leader: {{ team.teamLeader.user.username }}
 <br>
-Name: {{ team.name }}
 <br>
 Captain: {{ team.captain }}
 <br>

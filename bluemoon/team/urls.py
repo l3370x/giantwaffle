@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 urlpatterns = patterns('team.views',
 			url(r'^create/$', 'create'),
@@ -8,8 +8,10 @@ urlpatterns = patterns('team.views',
 			url(r'^all/$', 'allTeams'),
 			url(r'^join/$', 'joinTeamRequest'),
 			url(r'^update/$', 'update'),
+			url(r'^mySettings/$', 'editSettings'),
 			url(r'^leave/$', 'leave'),
 			url(r'^leaveReal/$', 'leaveReal'),
 			url(r'^allowJoin/$', 'allowJoinTeamRequest'),
+			url('^details/(?P<team>[\w|\W]+)$', 'showTeam'),
 			url(r'^(?P<username>\w+)$', 'userDetails'),
 			)
