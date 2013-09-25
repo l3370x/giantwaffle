@@ -46,7 +46,13 @@ def Calendar(request):
 	if tz:
 			timezone.activate(tz)
 	tzout=str(tz).replace("/","%2F")
-	return render(request,'calendar.html',{'timezones': pytz.common_timezones,'tztext':tzout},)
+	try:
+		stud = Student.objects.get(user=request.user.id)
+		noTeam = stud.myTeam is None
+		return render(request,'calendar.html',{'timezones': pytz.common_timezones,'tztext':tzout,'noTeam':False},)
+	except Student.DoesNotExist:
+		pass
+	return render(request,'calendar.html',{'timezones': pytz.common_timezones,'tztext':tzout,'noTeam':True},)
 	
 
 def logout(request):

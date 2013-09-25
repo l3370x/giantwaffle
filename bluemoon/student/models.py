@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
+from django.forms.models import ModelForm
 
 
 class Student(models.Model):
@@ -10,6 +11,9 @@ class Student(models.Model):
 		return self.user.username
 	user = models.ForeignKey(User, editable=False)
 	twitchName = models.CharField(max_length=50, blank=True)
+	hideTwitch = models.BooleanField(default=False)
+	hideSkype = models.BooleanField(default=False)
+	hideEmail = models.BooleanField(default=False)
 	skypeName = models.CharField(max_length=50, blank=True)
 	myTeam = models.ForeignKey('Team',editable=False, blank=True, null=True,on_delete=models.SET_NULL)
 	email = models.EmailField(blank=True)
@@ -24,12 +28,16 @@ class LoginForm(forms.Form):
 	password = forms.CharField(widget=forms.PasswordInput(render_value=False), max_length=100)
 
 class CreateUserForm(forms.Form):
-	username = forms.CharField(max_length=100)
-	twitchName = forms.CharField(max_length=50,required=False)
-	skypeName = forms.CharField(max_length=50,required=False)
-	email = forms.EmailField(max_length=100)
+	username = forms.CharField(max_length=100, label="Username")
+	twitchName = forms.CharField(max_length=50,required=False, label="Twitch username")
+	hideTwitch = forms.BooleanField(required=False, label="Hide twitch username?")
+	skypeName = forms.CharField(max_length=50,required=False,label="Skype username")
+	hideSkype = forms.BooleanField(required=False, help_text="Hide your skype username?", label="Hide skype username?")
+	email = forms.EmailField(max_length=100,label="E-mail")
+	hideEmail = forms.BooleanField(required=False, label="Hide e-mail address?")
 	password = forms.CharField(widget=forms.PasswordInput(render_value=False), max_length=100)
 	confirm = forms.CharField(widget=forms.PasswordInput(render_value=False), max_length=100)
+	
 	
 
 
@@ -55,4 +63,4 @@ class TeamForm(forms.ModelForm):
 		model = Team
 
 class CreateTeamForm(forms.Form):
-   teamName = forms.CharField(max_length=50)
+   teamName = forms.CharField(max_length=50,label="Team Name")

@@ -6,9 +6,11 @@
 <a href="/team/create/"><li class="leftBarLink">Create Team</li></a>
 <a href="/team/all/"><li class="leftBarLink">Join Team</li></a>
 {% else %}
-{% if teamLeader %}
 <a href="/team/home/"><li class="leftBarLink">My Team Page</li></a>
+{% if teamLeader %}
 <a href="/team/delete/"><li class="leftBarLink">Delete My Team</li></a>
+{% else %}
+<a href="/team/leave/"><li class="leftBarLink">Leave My Team</li></a>
 {% endif %}
 {% endif %}
 <br>
@@ -28,11 +30,11 @@ Helm: {{ team.helm }}
 <br>
 Weapons: {{ team.weapons }}
 <br>
-Science: {{ team.helm }}
+Science: {{ team.science }}
 <br>
-Engineering: {{ team.helm }}
+Engineering: {{ team.engineering }}
 <br>
-Comms: {{ team.helm }}
+Comms: {{ team.comms }}
 <br>
 {% if noTeam %}
 {% if loggedIn %}
