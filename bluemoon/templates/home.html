@@ -24,14 +24,20 @@ Please, only create or join teams if you are planning on playing online with you
 about the teams, feel free to <a href="/team/all/">check out all the teams</a>, or look at the <a href="/waffle/calendar/">calendar</a>.
 <br>
 <br>
+<div class="news">
 Recent Activity:
+{% if allNews %}
 {% for n in allNews %}
-<br>
-{{ n.user.username }}
-{{ n.timestamp }}
-{{ n.title }}
-{{ n.message }}
-<br>
+<div class="newsEntry">
+<div class="user">{{ n.user.username }}</div>
+<div class="title">{{ n.title }}</div>
+<div class="time">{{ n.timestamp }}</div>
+<div style="clear:both;"></div>
+<div class="message">{{ n.message }}</div>
+</div>
 {% endfor %}
-
+{% else %}
+No recent activity.
+{% endif %}
+</div>
 {% endblock %}

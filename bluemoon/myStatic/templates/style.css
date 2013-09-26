@@ -238,6 +238,33 @@ box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
     margin-top: 70px;
 }
 
+.newsEntry{
+	margin-left:10px;
+	margin-bottom:15px;
+	background-color: #e8e8e8;
+}
+.user {
+	float:left;
+	color:black;
+	font-weight:bold;
+	margin-bottom:5px;
+	margin-right:10px;
+}
+.time {
+	float: left;
+	font-style:italic;
+	font-size:small;
+}
+.title{
+	font-weight:bold;
+	font-size:medium;
+	float:left;
+	margin-right:20px;
+}
+.message{
+	
+}
+
 .btn {
 display: inline-block;
 padding: 4px 12px;
