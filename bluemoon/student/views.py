@@ -112,6 +112,7 @@ def create(request):
 		auth_user = authenticate(username=request.POST['username'],password=request.POST['password'])
 		if auth_user is not None:
 			django.contrib.auth.login(request, auth_user)
+			News.objects.create(user=auth_user,title="New User",message="Welcome <div class='emphasis'><a href='/user/"+auth_user.username+"'>"+auth_user.username+"</a></div> to the GiantWaffle Artemis SBS Website.")
 			return Home(request)
 		d['error']="There was a server error creating your username, please try again."
 		return render_to_response('student/create.html', d, context_instance = RequestContext(request))

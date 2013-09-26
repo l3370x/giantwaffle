@@ -12,6 +12,19 @@
 {% endif %}
 {% endblock %}
 
+{% block extraHeader %}
+<script src="/static/js/appear.js"></script>
+<script type='text/javascript'>
+$(function() {
+  $(document.body).on('appear', '.newsEntry', function(e, $affected) {
+    $(this).addClass("appeared");
+  });
+  $('.newsEntry').appear({force_process: true});
+});
+
+</script>
+{% endblock %}
+
 {% block content %}
 <br>Welcome to GiantWaffle's Artemis SBS tounament building website.  You can <a href="/team/all/">view all the teams</a> that have 
 been created, or <a href="/team/create/">create</a> your own team.
@@ -25,15 +38,14 @@ about the teams, feel free to <a href="/team/all/">check out all the teams</a>, 
 <br>
 <br>
 <div class="news">
-Recent Activity:
+Recent Activity
 {% if allNews %}
 {% for n in allNews %}
 <div class="newsEntry">
-<div class="user">{{ n.user.username }}</div>
 <div class="title">{{ n.title }}</div>
 <div class="time">{{ n.timestamp }}</div>
 <div style="clear:both;"></div>
-<div class="message">{{ n.message }}</div>
+<div class="message">{{ n.message|safe }}</div>
 </div>
 {% endfor %}
 {% else %}

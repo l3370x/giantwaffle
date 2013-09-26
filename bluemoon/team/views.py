@@ -318,5 +318,5 @@ def create(request):
 		currentStud.save()
 		d['myTeam']=newTeam
 		newNews = News.objects.create(user=user,title="New Team Created",
-									message="Welcome "+newTeam.name+" to the GiantWaffle Artemis SBS Website.")
+									message="Team <div class='emphasis'><a href='/team/details/"+newTeam.name+"'>"+newTeam.name+"</a></div> has been created.")
 		return render(request,'team/createSuccess.html',d)
