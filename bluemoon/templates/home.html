@@ -1,55 +1,14 @@
 {% extends "base.html" %}
 
 {% block leftBar %}
-{% if user.is_authenticated %}
-{% if noTeam %}
-<a href="/team/create/"><li class="leftBarLink">Create Team</li></a>
-<a href="/team/all/"><li class="leftBarLink">Join Team</li></a>
-{% else %}
-<a href="/team/home/"><li class="leftBarLink">My Team Page</li></a>
-{% endif %}
-<br>
-{% endif %}
+
 {% endblock %}
 
 {% block extraHeader %}
-<script src="/static/js/appear.js"></script>
-<script type='text/javascript'>
-$(function() {
-  $(document.body).on('appear', '.newsEntry', function(e, $affected) {
-    $(this).addClass("appeared");
-  });
-  $('.newsEntry').appear({force_process: true});
-});
 
-</script>
 {% endblock %}
 
 {% block content %}
-<br>Welcome to GiantWaffle's Artemis SBS tounament building website.  You can <a href="/team/all/">view all the teams</a> that have 
-been created, or <a href="/team/create/">create</a> your own team.
-<br>
-<br>
-You can view a <a href="/waffle/calendar/">calendar</a> of upcomming Artemis SBS tournamet events.  Remember to select your own timezone.
-<br>
-<br>
-Please, only create or join teams if you are planning on playing online with your team.  If you are not going to buy the game, but are curious
-about the teams, feel free to <a href="/team/all/">check out all the teams</a>, or look at the <a href="/waffle/calendar/">calendar</a>.
-<br>
-<br>
-<div class="news">
-Recent Activity
-{% if allNews %}
-{% for n in allNews %}
-<div class="newsEntry">
-<div class="title">{{ n.title }}</div>
-<div class="time">{{ n.timestamp }}</div>
-<div style="clear:both;"></div>
-<div class="message">{{ n.message|safe }}</div>
-</div>
-{% endfor %}
-{% else %}
-No recent activity.
-{% endif %}
-</div>
+
+
 {% endblock %}

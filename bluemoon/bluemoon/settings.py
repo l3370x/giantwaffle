@@ -153,9 +153,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'student',
-    'team',
-    'news',
-    'request',
 )
 
 EMAIL_HOST = "smtp.1and1.com"
