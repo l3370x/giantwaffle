@@ -9,13 +9,13 @@ import os
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 locHost = False
 if 'aaronm3' in ROOT_PATH:
-	basepath= 'C:/Users/aaronm3/Documents/GitHub/giantwaffle'
+	basepath= 'C:/Users/aaronm3/Documents/GitHub/superbowl'
 	locHost = True
 elif 'aaron' in ROOT_PATH:
-	basepath = '/home/aaron/schoolSite/kpms-carat'
+	basepath = '/home/aaron/schoolSite/superbowl'
 	locHost = True
 elif 'Aaron' in ROOT_PATH:
-	basepath = 'C:\Users\Aaron\workspaceWaffle\giantwaffle'
+	basepath = 'C:\Users\Aaron\workspaceWaffle\superbowl'
 	locHost = True
 else:
 	basepath = '/homepages/19/d429491612/htdocs/giantwaffle'
