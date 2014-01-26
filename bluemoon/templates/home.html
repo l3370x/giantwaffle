@@ -2,7 +2,7 @@
 
 <script>
 	function getIDFromIndex(ind) {
-		return ((ind % 10)).toString() + Math.floor((ind) / 10).toString();
+		return Math.floor((ind) / 10).toString()+((ind % 10)).toString();
 	}
 	function doUpdate() {
 		$.ajax({
