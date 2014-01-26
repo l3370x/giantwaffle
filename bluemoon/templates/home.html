@@ -1,15 +1,25 @@
 {% extends "base.html" %} {% block extraHeader %}
 
 <script>
+	function getIDFromIndex(ind) {
+		return ((ind % 10)).toString() + Math.floor((ind + 1) / 11).toString();
+	}
 	function doUpdate() {
-		$.ajax({
-			type : 'POST',
-			url : "http://superbowl.bluemoonscience.com/cgi-bin/getUpdate.php",
-			data : {},
-			success : function(data1) {
-				alert(data1);
-			}
-		});
+		//	$.ajax({
+		//		type : 'POST',
+		//		url : "http://superbowl.bluemoonscience.com/cgi-bin/getUpdate.php",
+		//		data : {},
+		//		success : function(data1) {
+		//			alert(data1);
+		//		}
+		//	});
+		var data1 = '[{"id":"1","name":" - "},{"id":"2","name":" - "},{"id":"3","name":" - "},{"id":"4","name":" - "},{"id":"5","name":" - "},{"id":"6","name":" - "},{"id":"7","name":" - "},{"id":"8","name":" - "},{"id":"9","name":" - "},{"id":"10","name":" - "},{"id":"11","name":" - "},{"id":"12","name":" - "},{"id":"13","name":" - "},{"id":"14","name":" - "},{"id":"15","name":" - "},{"id":"16","name":" - "},{"id":"17","name":" - "},{"id":"18","name":" - "},{"id":"19","name":" - "},{"id":"20","name":" - "},{"id":"21","name":" - "},{"id":"22","name":" - "},{"id":"23","name":" - "},{"id":"24","name":" - "},{"id":"25","name":" - "},{"id":"26","name":" - "},{"id":"27","name":" - "},{"id":"28","name":" - "},{"id":"29","name":" - "},{"id":"30","name":" - "},{"id":"31","name":" - "},{"id":"32","name":" - "},{"id":"33","name":" - "},{"id":"34","name":" - "},{"id":"35","name":" - "},{"id":"36","name":" - "},{"id":"37","name":" - "},{"id":"38","name":" - "},{"id":"39","name":" - "},{"id":"40","name":" - "},{"id":"41","name":" - "},{"id":"42","name":" - "},{"id":"43","name":" - "},{"id":"44","name":" - "},{"id":"45","name":" - "},{"id":"46","name":" - "},{"id":"47","name":" - "},{"id":"48","name":" - "},{"id":"49","name":" - "},{"id":"50","name":" - "},{"id":"51","name":" - "},{"id":"52","name":" - "},{"id":"53","name":" - "},{"id":"54","name":" - "},{"id":"55","name":" - "},{"id":"56","name":" - "},{"id":"57","name":" - "},{"id":"58","name":" - "},{"id":"59","name":" - "},{"id":"60","name":" - "},{"id":"61","name":" - "},{"id":"62","name":" - "},{"id":"63","name":" - "},{"id":"64","name":" - "},{"id":"65","name":" - "},{"id":"66","name":" - "},{"id":"67","name":" - "},{"id":"68","name":" - "},{"id":"69","name":" - "},{"id":"70","name":" - "},{"id":"71","name":" - "},{"id":"72","name":" - "},{"id":"73","name":" - "},{"id":"74","name":" - "},{"id":"75","name":" - "},{"id":"76","name":" - "},{"id":"77","name":" - "},{"id":"78","name":" - "},{"id":"79","name":" - "},{"id":"80","name":" - "},{"id":"81","name":" - "},{"id":"82","name":" - "},{"id":"83","name":" - "},{"id":"84","name":" - "},{"id":"85","name":" - "},{"id":"86","name":" - "},{"id":"87","name":" - "},{"id":"88","name":" - "},{"id":"89","name":" - "},{"id":"90","name":" - "},{"id":"91","name":" - "},{"id":"92","name":" - "},{"id":"93","name":" - "},{"id":"94","name":" - "},{"id":"95","name":" - "},{"id":"96","name":" - "},{"id":"97","name":" - "},{"id":"98","name":" - "},{"id":"99","name":" - "},{"id":"100","name":" - "}]';
+		//alert(data1);
+		var obj = JSON.parse(data1);
+		$.each(obj,	function(index, value) {
+							//console.log(getIDFromIndex(index) + " "	+ value.name);
+							$("#"+getIDFromIndex(index)).html = value.name;
+						});
 
 	}
 	function doClick(a, b) {
@@ -43,51 +53,135 @@
 			<TH>9
 		<tr>
 			<th rowspan="11" class="verticalTableHeader">Denver Broncos
-			<th>0 J&R
-			<td id="00" onMouseover="this.bgColor='#EEEEEE'"
-				onMouseout="this.bgColor='#FFFFFF'" onclick="doClick(0,0)"></td>
-			<td id="01" onMouseover="this.bgColor='#EEEEEE'"
-				onMouseout="this.bgColor='#FFFFFF'" onclick="doClick(0,1)">M&D</td>
-			<td id="02" onMouseover="this.bgColor='#EEEEEE'"
-				onMouseout="this.bgColor='#FFFFFF'" onclick="doClick(0,2)">Bret</td>
-			<td id="03" onMouseover="this.bgColor='#EEEEEE'"
-				onMouseout="this.bgColor='#FFFFFF'" onclick="doClick(0,3)">-</td>
+			<th>0
+			<td id="00" onclick="doClick(0,0)" class="clickable">-</td>
+			<td id="01" onclick="doClick(0,1)" class="clickable">-</td>
+			<td id="02" onclick="doClick(0,2)" class="clickable">-</td>
+			<td id="03" onclick="doClick(0,3)" class="clickable">-</td>
+			<td id="04" onclick="doClick(0,4)" class="clickable">-</td>
+			<td id="05" onclick="doClick(0,5)" class="clickable">-</td>
+			<td id="06" onclick="doClick(0,6)" class="clickable">-</td>
+			<td id="07" onclick="doClick(0,7)" class="clickable">-</td>
+			<td id="08" onclick="doClick(0,8)" class="clickable">-</td>
+			<td id="09" onclick="doClick(0,9)" class="clickable">-</td>
 		</tr>
 		<tr>
 		<tr>
 			<th>1
-			<td id="10" onMouseover="this.bgColor='#EEEEEE'"
-				onMouseout="this.bgColor='#FFFFFF'" onclick="doClick(1,0)">Aa</td>
-			<td id="11" onMouseover="this.bgColor='#EEEEEE'"
-				onMouseout="this.bgColor='#FFFFFF'" onclick="doClick(1,1)">-</td>
-			<td id="12" onMouseover="this.bgColor='#EEEEEE'"
-				onMouseout="this.bgColor='#FFFFFF'" onclick="doClick(1,2)">M&D</td>
-			<td id="13" onMouseover="this.bgColor='#EEEEEE'"
-				onMouseout="this.bgColor='#FFFFFF'" onclick="doClick(1,3)">Bret</td>
+			<td id="10" onclick="doClick(1,0)" class="clickable">-</td>
+			<td id="11" onclick="doClick(1,1)" class="clickable">-</td>
+			<td id="12" onclick="doClick(1,2)" class="clickable">-</td>
+			<td id="13" onclick="doClick(1,3)" class="clickable">-</td>
+			<td id="14" onclick="doClick(1,4)" class="clickable">-</td>
+			<td id="15" onclick="doClick(1,5)" class="clickable">-</td>
+			<td id="16" onclick="doClick(1,6)" class="clickable">-</td>
+			<td id="17" onclick="doClick(1,7)" class="clickable">-</td>
+			<td id="18" onclick="doClick(1,8)" class="clickable">-</td>
+			<td id="19" onclick="doClick(1,9)" class="clickable">-</td>
 		</tr>
 		<tr>
 			<th>2
+			<td id="20" onclick="doClick(2,0)" class="clickable">-</td>
+			<td id="21" onclick="doClick(2,1)" class="clickable">-</td>
+			<td id="22" onclick="doClick(2,2)" class="clickable">-</td>
+			<td id="23" onclick="doClick(2,3)" class="clickable">-</td>
+			<td id="24" onclick="doClick(2,4)" class="clickable">-</td>
+			<td id="25" onclick="doClick(2,5)" class="clickable">-</td>
+			<td id="26" onclick="doClick(2,6)" class="clickable">-</td>
+			<td id="27" onclick="doClick(2,7)" class="clickable">-</td>
+			<td id="28" onclick="doClick(2,8)" class="clickable">-</td>
+			<td id="29" onclick="doClick(2,9)" class="clickable">-</td>
 		</tr>
 		<tr>
 			<th>3
+			<td id="30" onclick="doClick(3,0)" class="clickable">-</td>
+			<td id="31" onclick="doClick(3,1)" class="clickable">-</td>
+			<td id="32" onclick="doClick(3,2)" class="clickable">-</td>
+			<td id="33" onclick="doClick(3,3)" class="clickable">-</td>
+			<td id="34" onclick="doClick(3,4)" class="clickable">-</td>
+			<td id="35" onclick="doClick(3,5)" class="clickable">-</td>
+			<td id="36" onclick="doClick(3,6)" class="clickable">-</td>
+			<td id="37" onclick="doClick(3,7)" class="clickable">-</td>
+			<td id="38" onclick="doClick(3,8)" class="clickable">-</td>
+			<td id="39" onclick="doClick(3,9)" class="clickable">-</td>
 		</tr>
 		<tr>
 			<th>4
+			<td id="40" onclick="doClick(4,0)" class="clickable">-</td>
+			<td id="41" onclick="doClick(4,1)" class="clickable">-</td>
+			<td id="42" onclick="doClick(4,2)" class="clickable">-</td>
+			<td id="43" onclick="doClick(4,3)" class="clickable">-</td>
+			<td id="44" onclick="doClick(4,4)" class="clickable">-</td>
+			<td id="45" onclick="doClick(4,5)" class="clickable">-</td>
+			<td id="46" onclick="doClick(4,6)" class="clickable">-</td>
+			<td id="47" onclick="doClick(4,7)" class="clickable">-</td>
+			<td id="48" onclick="doClick(4,8)" class="clickable">-</td>
+			<td id="49" onclick="doClick(4,9)" class="clickable">-</td>
 		</tr>
 		<tr>
 			<th>5
+			<td id="50" onclick="doClick(5,0)" class="clickable">-</td>
+			<td id="51" onclick="doClick(5,1)" class="clickable">-</td>
+			<td id="52" onclick="doClick(5,2)" class="clickable">-</td>
+			<td id="53" onclick="doClick(5,3)" class="clickable">-</td>
+			<td id="54" onclick="doClick(5,4)" class="clickable">-</td>
+			<td id="55" onclick="doClick(5,5)" class="clickable">-</td>
+			<td id="56" onclick="doClick(5,6)" class="clickable">-</td>
+			<td id="57" onclick="doClick(5,7)" class="clickable">-</td>
+			<td id="58" onclick="doClick(5,8)" class="clickable">-</td>
+			<td id="59" onclick="doClick(5,9)" class="clickable">-</td>
 		</tr>
 		<tr>
 			<th>6
+			<td id="60" onclick="doClick(6,0)" class="clickable">-</td>
+			<td id="61" onclick="doClick(6,1)" class="clickable">-</td>
+			<td id="62" onclick="doClick(6,2)" class="clickable">-</td>
+			<td id="63" onclick="doClick(6,3)" class="clickable">-</td>
+			<td id="64" onclick="doClick(6,4)" class="clickable">-</td>
+			<td id="65" onclick="doClick(6,5)" class="clickable">-</td>
+			<td id="66" onclick="doClick(6,6)" class="clickable">-</td>
+			<td id="67" onclick="doClick(6,7)" class="clickable">-</td>
+			<td id="68" onclick="doClick(6,8)" class="clickable">-</td>
+			<td id="69" onclick="doClick(6,9)" class="clickable">-</td>
 		</tr>
 		<tr>
 			<th>7
+			<td id="70" onclick="doClick(7,0)" class="clickable">-</td>
+			<td id="71" onclick="doClick(7,1)" class="clickable">-</td>
+			<td id="72" onclick="doClick(7,2)" class="clickable">-</td>
+			<td id="73" onclick="doClick(7,3)" class="clickable">-</td>
+			<td id="74" onclick="doClick(7,4)" class="clickable">-</td>
+			<td id="75" onclick="doClick(7,5)" class="clickable">-</td>
+			<td id="76" onclick="doClick(7,6)" class="clickable">-</td>
+			<td id="77" onclick="doClick(7,7)" class="clickable">-</td>
+			<td id="78" onclick="doClick(7,8)" class="clickable">-</td>
+			<td id="79" onclick="doClick(7,9)" class="clickable">-</td>
 		</tr>
 		<tr>
 			<th>8
+			<td id="80" onclick="doClick(8,0)" class="clickable">-</td>
+			<td id="81" onclick="doClick(8,1)" class="clickable">-</td>
+			<td id="82" onclick="doClick(8,2)" class="clickable">-</td>
+			<td id="83" onclick="doClick(8,3)" class="clickable">-</td>
+			<td id="84" onclick="doClick(8,4)" class="clickable">-</td>
+			<td id="85" onclick="doClick(8,5)" class="clickable">-</td>
+			<td id="86" onclick="doClick(8,6)" class="clickable">-</td>
+			<td id="87" onclick="doClick(8,7)" class="clickable">-</td>
+			<td id="88" onclick="doClick(8,8)" class="clickable">-</td>
+			<td id="89" onclick="doClick(8,9)" class="clickable">-</td>
 		</tr>
 		<tr>
 			<th>9
+			<td id="90" onclick="doClick(9,0)" class="clickable">-</td>
+			<td id="91" onclick="doClick(9,1)" class="clickable">-</td>
+			<td id="92" onclick="doClick(9,2)" class="clickable">-</td>
+			<td id="93" onclick="doClick(9,3)" class="clickable">-</td>
+			<td id="94" onclick="doClick(9,4)" class="clickable">-</td>
+			<td id="95" onclick="doClick(9,5)" class="clickable">-</td>
+			<td id="96" onclick="doClick(9,6)" class="clickable">-</td>
+			<td id="97" onclick="doClick(9,7)" class="clickable">-</td>
+			<td id="98" onclick="doClick(9,8)" class="clickable">-</td>
+			<td id="99" onclick="doClick(9,9)" class="clickable">-</td>
 		</tr>
 	</table>
 </div>
@@ -96,7 +190,7 @@
 	<br> <br> <input id="clickMe" type="button" value="Update"
 		onclick="doUpdate();" /> <br> <br> Prizes:<br> 1st
 	quarter - <br> 2nd quarter - <br> 3rd quarter - <br> 4th
-	quarter - <br>
+	quarter - $50 dollars (Mom and Dad)<br>
 </div>
 
 {% endblock %}
