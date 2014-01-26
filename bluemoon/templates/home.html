@@ -5,7 +5,7 @@
 		return Math.floor((ind) / 10).toString()+((ind % 10)).toString();
 	}
 	function getIndexFromID (d,s){
-		return ((d+1)+(10*s)).toString();
+		return ((s+1)+(10*d)).toString();
 	}
 	function doUpdate() {
 		$.ajax({
