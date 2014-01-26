@@ -37,6 +37,11 @@ vertical-align:middle;
 	clear:both;
 }
 
+.prizeTable {
+	height:auto;
+	width:auto;
+}
+
 .login {
     background: #eeeeee;
     width: 28em;
