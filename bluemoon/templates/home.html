@@ -1,13 +1,27 @@
-{% extends "base.html" %}
-{% block extraHeader %}
+{% extends "base.html" %} {% block extraHeader %}
 
 <script>
 	function doUpdate() {
-		alert("updated!");
+		$.ajax({
+			type : 'POST',
+			url : "http://superbowl.bluemoonscience.com/cgi-bin/getUpdate.php",
+			data : {},
+			success : function(data1) {
+				alert(data1);
+			}
+		});
+
 	}
 	function doClick(a, b) {
 		alert("clicked on " + a + "," + b);
 	}
+</script>
+
+<script>
+	window.onload = (function() {
+		doUpdate();
+		//setTimeout(arguments.callee, 5000);
+	})();
 </script>
 
 {% endblock %} {% block content %}
