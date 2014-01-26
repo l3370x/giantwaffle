@@ -17,8 +17,27 @@
 			}
 		});
 	}
+	function getTurn(){
+		$.ajax({
+			type : 'POST',
+			url : "http://superbowl.bluemoonscience.com/cgi-bin/getTurn.php",
+			data : {},
+			success : function(data2) {
+				var data1 = JSON.parse(data2);
+				$.each(data1,	function(index, value) {
+					console.log(value.turn);
+					return value.turn;
+				});
+				return "Aa";
+			}
+		});
+	}
 	function doClick(a, b) {
 		alert("clicked on " + a + "," + b);
+		// check turn.
+		var theTurn = getTurn();
+		// if your turn, update DB.
+		// if not, warn user not your turn.
 	}
 </script>
 
