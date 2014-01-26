@@ -5,7 +5,7 @@
 		return Math.floor((ind) / 10).toString()+((ind % 10)).toString();
 	}
 	function getIndexFromID (d,s){
-		return ((d+1)*(10*s)).toString();
+		return ((d+1)+(10*s)).toString();
 	}
 	function doUpdate() {
 		$.ajax({
@@ -53,10 +53,10 @@
 			updateTurn("Bret");
 			break;
 		case "Bret":
-			updateTurn("M&D");
+			updateTurn("M D");
 			break;
 		case "M&D":
-			updateTurn("J&R");
+			updateTurn("J R");
 			break;
 		}
 	}
@@ -85,7 +85,7 @@
 					var theTurn = value.turn;
 					var whoami = "{{ username }}";
 					switch (theTurn) {
-					case "J&R":
+					case "R J":
 						if (whoami == "jeff" || whoami == "raegan"){
 							// it's jeff's turn.
 							updateDB(a,b,theTurn);
@@ -94,7 +94,7 @@
 							alert("It's not your turn.");
 						}
 						break;
-					case "M&D":
+					case "M D":
 						if (whoami == "mom" || whoami == "dad"){
 							// it's dad's turn.
 							updateDB(a,b,theTurn);
