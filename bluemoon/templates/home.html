@@ -12,8 +12,9 @@
 			success : function(data2) {
 				var data1 = JSON.parse(data2);
 				$.each(data1,	function(index, value) {
-					console.log(getIDFromIndex(index) + " "	+ value.name);
-					$("#"+getIDFromIndex(index)).html(value.name);
+					//console.log(getIDFromIndex(index) + " "	+ value.name);
+					var theID = getIDFromIndex(index);
+					$("#"+theID).html(theID);
 				});
 			}
 		});
