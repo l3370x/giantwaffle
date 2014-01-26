@@ -21,21 +21,6 @@
 		});
 		getTurn();
 	}
-	function getTurn(){
-		$.ajax({
-			type : 'POST',
-			url : "http://superbowl.bluemoonscience.com/cgi-bin/getTurn.php",
-			data : {},
-			success : function(data2) {
-				var data1 = JSON.parse(data2);
-				$.each(data1,	function(index, value) {
-					$("#currentPick").html("Pick = "+value.turn);
-					return value.turn;
-				});
-				return "Aa";
-			}
-		});
-	}
 	function updateTurn(n) {
 		$.ajax({
 			type : 'POST',
@@ -73,47 +58,56 @@
 		});
 	}
 	function doClick(a, b) {
-		alert("clicked on " + a + "," + b);
+		//alert("clicked on " + a + "," + b);
 		// check turn.
-		var theTurn = getTurn();
-		var whoami = "{{ username }}";
-		switch (theTurn) {
-		case "J&R":
-			if (whoami == "jeff" || whoami == "raegan"){
-				// it's jeff's turn.
-				updateDB(a,b,theTurn);
-				
-			} else {
-				alert("It's not your turn.");
-			}
-			break;
-		case "M&D":
-			if (whoami == "mom" || whoami == "dad"){
-				// it's dad's turn.
-				updateDB(a,b,theTurn);
-			}else {
-				alert("It's not your turn.");
-			}
-			break;
-		case "Bret":
-			if (whoami == "bret"){
-				// it's bret's turn.
-				updateDB(a,b,theTurn);
-			}else {
-				alert("It's not your turn.");
-			}
-			break;
-		case "Aa":
-			if (whoami == "aaron" ){
-				// it's my turn.
-				updateDB(a,b,theTurn);
-			}else {
-				alert("It's not your turn.");
-			}
-			break;
-		}
-		// if your turn, update DB.
-		// if not, warn user not your turn.
+		$.ajax({
+			type : 'POST',
+			url : "http://superbowl.bluemoonscience.com/cgi-bin/getTurn.php",
+			data : {},
+			success : function(data2) {
+				var data1 = JSON.parse(data2);
+				$.each(data1,	function(index, value) {
+					$("#currentPick").html("Pick = "+value.turn);
+					var theTurn = getTurn();
+					var whoami = "{{ username }}";
+					switch (theTurn) {
+					case "J&R":
+						if (whoami == "jeff" || whoami == "raegan"){
+							// it's jeff's turn.
+							updateDB(a,b,theTurn);
+							
+						} else {
+							alert("It's not your turn.");
+						}
+						break;
+					case "M&D":
+						if (whoami == "mom" || whoami == "dad"){
+							// it's dad's turn.
+							updateDB(a,b,theTurn);
+						}else {
+							alert("It's not your turn.");
+						}
+						break;
+					case "Bret":
+						if (whoami == "bret"){
+							// it's bret's turn.
+							updateDB(a,b,theTurn);
+						}else {
+							alert("It's not your turn.");
+						}
+						break;
+					case "Aa":
+						if (whoami == "aaron" ){
+							// it's my turn.
+							updateDB(a,b,theTurn);
+						}else {
+							alert("It's not your turn.");
+						}
+						break;
+					}
+				});			
+				}
+		});
 	}
 </script>
 
