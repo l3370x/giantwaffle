@@ -4,9 +4,6 @@
 	function getIDFromIndex(ind) {
 		return ((ind % 10)).toString() + Math.floor((ind + 1) / 11).toString();
 	}
-	function retThis() {
-		return "00";
-	}
 	function doUpdate() {
 		$.ajax({
 			type : 'POST',
