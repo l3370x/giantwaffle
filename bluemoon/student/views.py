@@ -21,15 +21,11 @@ def startPage(request):
 def Home(request):
 	try:
 		stud = Student.objects.get(user=request.user.id)
-		return render(request, 'home.html', {'username':request.user.username})
+		return render(request, 'home.html', {'username':request.user.username,"logged":False})
 	except Student.DoesNotExist:
 		pass
-	return render(request,'home.html',{'username':request.user.username})
+	return render(request,'login.html',{'username':request.user.username,"logged":True})
 
-
-def logout(request):
-	django.contrib.auth.logout(request)
-	return startPage(request)
 
 def login(request):
 	if request.method == 'GET':
