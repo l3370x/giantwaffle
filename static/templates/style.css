@@ -1,21 +1,35 @@
 /* CSS Document */
 
-* {
-    margin:0;
-}
 
 html, body {
     height: 100%;
     font-family:'Helvetica', Arial, Verdana;
 }
 
-.error {
-	color:#FF0000
+table
+{
+border-collapse:collapse;
+border: 1px solid black;
+float: left;
 }
-.required {
-	color:#FF0000
+th, td
+{
+border: 1px solid black;
+height: 40px;
+width: 40px;
+text-align:center; 
+vertical-align:middle;
+
 }
 
+#currentPick {
+	float: left;
+	margin-left:20px;
+}
+
+#Prizes {
+	clear:both;
+}
 
 .login {
     background: #eeeeee;
@@ -26,4 +40,12 @@ html, body {
     margin-left: 0px;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.verticalTableHeader {
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);   
 }
