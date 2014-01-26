@@ -16,6 +16,7 @@
 				});
 			}
 		});
+		getTurn();
 	}
 	function getTurn(){
 		$.ajax({
@@ -25,7 +26,7 @@
 			success : function(data2) {
 				var data1 = JSON.parse(data2);
 				$.each(data1,	function(index, value) {
-					console.log(value.turn);
+					$("#currentPick").html("Pick = "+value.turn);
 					return value.turn;
 				});
 				return "Aa";
