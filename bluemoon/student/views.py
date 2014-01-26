@@ -64,6 +64,6 @@ def doAdd(user,email,password,nick):
 		return "name already taken"
 	except User.DoesNotExist:
 		pass
-	userO = User.objects.create_user(user,email,password,nick);
+	userO = User.objects.create_user(user,email,password);
 	userO.save
-	person = Student.objects.create(user = userO, email = email)
+	person = Student.objects.create(user = userO, email = email, nick = nick)
