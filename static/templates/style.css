@@ -19,7 +19,13 @@ height: 40px;
 width: 40px;
 text-align:center; 
 vertical-align:middle;
+}
 
+.clickable{
+	background-color:#FFFFFF;
+}
+.clickable:hover {
+	background-color:#EEEEEE;
 }
 
 #currentPick {
