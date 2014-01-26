@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% block extraHeader %}
+
 <script>
 	function doUpdate() {
 		alert("updated!");
@@ -7,9 +9,6 @@
 		alert("clicked on " + a + "," + b);
 	}
 </script>
-
-{% block extraHeader %}
-
 
 {% endblock %} {% block content %}
 <div id="container"></div>
