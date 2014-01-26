@@ -6,13 +6,13 @@ html, body {
     font-family:'Helvetica', Arial, Verdana;
 }
 
-table
+div.TheTable table
 {
 border-collapse:collapse;
 border: 1px solid black;
 float: left;
 }
-th, td
+div.TheTable th, td
 {
 border: 1px solid black;
 height: 40px;
@@ -37,10 +37,7 @@ vertical-align:middle;
 	clear:both;
 }
 
-.prizeTable table th td{
-	height:auto;
-	width:auto;
-}
+
 
 .login {
     background: #eeeeee;
