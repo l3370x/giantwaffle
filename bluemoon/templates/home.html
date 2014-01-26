@@ -40,7 +40,7 @@
 			url : "http://superbowl.bluemoonscience.com/cgi-bin/updateTurn.php",
 			data : "name="+n,
 			success : function(data2) {
-				alert(data2);
+				//alert(data2);
 			}
 		});
 	}
@@ -66,7 +66,7 @@
 			url : "http://superbowl.bluemoonscience.com/cgi-bin/updateTable.php",
 			data : "name="+n+"&id="+getIndexFromID(d,s),
 			success : function(data2) {
-				alert(data2);
+				//alert(data2);
 				advanceTurn(n);
 			}
 		});
@@ -128,7 +128,7 @@
 <script>
 	window.onload = (function() {
 		doUpdate();
-		//setTimeout(arguments.callee, 5000);
+		setTimeout(arguments.callee, 5000);
 	})();
 </script>
 
