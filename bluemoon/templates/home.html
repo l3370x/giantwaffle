@@ -46,17 +46,17 @@
 	}
 	function advanceTurn(n){
 		switch(n) {
-		case "J&R":
+		case "RJ":
 			updateTurn("Aa");
 			break;
 		case "Aa":
 			updateTurn("Bret");
 			break;
 		case "Bret":
-			updateTurn("M D");
+			updateTurn("MD");
 			break;
-		case "M&D":
-			updateTurn("J R");
+		case "MD":
+			updateTurn("RJ");
 			break;
 		}
 	}
@@ -85,7 +85,7 @@
 					var theTurn = value.turn;
 					var whoami = "{{ username }}";
 					switch (theTurn) {
-					case "R J":
+					case "RJ":
 						if (whoami == "jeff" || whoami == "raegan"){
 							// it's jeff's turn.
 							updateDB(a,b,theTurn);
@@ -94,7 +94,7 @@
 							alert("It's not your turn.");
 						}
 						break;
-					case "M D":
+					case "MD":
 						if (whoami == "mom" || whoami == "dad"){
 							// it's dad's turn.
 							updateDB(a,b,theTurn);
