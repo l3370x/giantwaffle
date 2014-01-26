@@ -37,7 +37,18 @@ vertical-align:middle;
 	clear:both;
 }
 
-
+div.Prizes table
+{
+border-collapse:collapse;
+border: 1px solid black;
+float: left;
+}
+div.Prizes th, td
+{
+border: 1px solid black;
+text-align:center; 
+vertical-align:middle;
+}
 
 .login {
     background: #eeeeee;
