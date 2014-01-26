@@ -12,7 +12,7 @@ border-collapse:collapse;
 border: 1px solid black;
 float: left;
 }
-div.TheTable th, td
+div.TheTable th, div.TheTable td
 {
 border: 1px solid black;
 height: 40px;
@@ -43,7 +43,7 @@ border-collapse:collapse;
 border: 1px solid black;
 float: left;
 }
-div.Prizes th, td
+div.Prizes th, div.Prizes td
 {
 border: 1px solid black;
 text-align:center; 
