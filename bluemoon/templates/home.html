@@ -40,7 +40,7 @@
 		$.ajax({
 			type : 'POST',
 			url : "http://superbowl.bluemoonscience.com/cgi-bin/updateTurn.php",
-			data : {"name="+n},
+			data : "name="+n,
 			success : function(data2) {
 				
 			}
@@ -66,7 +66,7 @@
 		$.ajax({
 			type : 'POST',
 			url : "http://superbowl.bluemoonscience.com/cgi-bin/updateTable.php",
-			data : {"name="+n+"&id="+getIndexFromID(d,s)},
+			data : "name="+n+"&id="+getIndexFromID(d,s),
 			success : function(data2) {
 				advanceTurn(n);
 			}
