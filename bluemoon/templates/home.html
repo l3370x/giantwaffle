@@ -4,6 +4,9 @@
 	function getIDFromIndex(ind) {
 		return Math.floor((ind) / 10).toString()+((ind % 10)).toString();
 	}
+	function getIndexFromID (d,s){
+		return ((d+1)*(10*s)).toString();
+	}
 	function doUpdate() {
 		$.ajax({
 			type : 'POST',
@@ -33,12 +36,82 @@
 			}
 		});
 	}
+	function updateTurn(n) {
+		$.ajax({
+			type : 'POST',
+			url : "http://superbowl.bluemoonscience.com/cgi-bin/updateTurn.php",
+			data : {"name="+n},
+			success : function(data2) {
+				
+			}
+		});
+	}
+	function advanceTurn(n){
+		switch(n) {
+		case "J&R":
+			updateTurn("Aa");
+			break;
+		case "Aa":
+			updateTurn("Bret");
+			break;
+		case "Bret":
+			updateTurn("M&D");
+			break;
+		case "M&D":
+			updateTurn("J&R");
+			break;
+		}
+	}
+	function updateDB(d,s,n){
+		$.ajax({
+			type : 'POST',
+			url : "http://superbowl.bluemoonscience.com/cgi-bin/updateTable.php",
+			data : {"name="+n+"&id="+getIndexFromID(d,s)},
+			success : function(data2) {
+				advanceTurn(n);
+			}
+		});
+	}
 	function doClick(a, b) {
 		alert("clicked on " + a + "," + b);
 		// check turn.
 		var theTurn = getTurn();
 		var whoami = "{{ username }}";
-		console.log(whoami);
+		switch (theTurn) {
+		case "J&R":
+			if (whoami == "jeff" || whoami == "raegan"){
+				// it's jeff's turn.
+				updateDB(a,b,theTurn);
+				
+			} else {
+				alert("It's not your turn.");
+			}
+			break;
+		case "M&D":
+			if (whoami == "mom" || whoami == "dad"){
+				// it's dad's turn.
+				updateDB(a,b,theTurn);
+			}else {
+				alert("It's not your turn.");
+			}
+			break;
+		case "Bret":
+			if (whoami == "bret"){
+				// it's bret's turn.
+				updateDB(a,b,theTurn);
+			}else {
+				alert("It's not your turn.");
+			}
+			break;
+		case "Aa":
+			if (whoami == "aaron" ){
+				// it's my turn.
+				updateDB(a,b,theTurn);
+			}else {
+				alert("It's not your turn.");
+			}
+			break;
+		}
 		// if your turn, update DB.
 		// if not, warn user not your turn.
 	}
