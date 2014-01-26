@@ -24,7 +24,7 @@ def Home(request):
 		return render(request, 'home.html', {'username':request.user.username,"logged":False})
 	except Student.DoesNotExist:
 		pass
-	return render(request,'login.html',{'username':request.user.username,"logged":True})
+	return login(request)
 
 
 def login(request):
@@ -49,8 +49,21 @@ def login(request):
 		django.contrib.auth.login(request, user)
 		return student2Home(request, user)
 
+def logout(request):
+	django.contrib.auth.logout(request)
+	return startPage(request)
 
 @login_required
 def student2Home(request, studentUser):
 	theStudent = Student.objects.get(user = studentUser.id)
 	return redirect('/', {'theStudent':theStudent})
+
+def doAdd(user,email,password,nick):
+	try:
+		u = User.objects.get(username = user)
+		return "name already taken"
+	except User.DoesNotExist:
+		pass
+	userO = User.objects.create_user(user,email,password,nick);
+	userO.save
+	person = Student.objects.create(user = userO, email = email)

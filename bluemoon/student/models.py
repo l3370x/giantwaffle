@@ -12,6 +12,7 @@ class Student(models.Model):
 		return self.user.username
 	user = models.ForeignKey(User, editable=False)
 	email = models.EmailField(blank=True)
+	nick = models.CharField(max_length=5, blank=True)
 	
 
 class StudentForm(forms.ModelForm):

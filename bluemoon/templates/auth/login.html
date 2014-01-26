@@ -1,10 +1,8 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block extraHeader %}
 
-{% block content %}
+{% endblock %} {% block content %}
 
-In order to create or join teams on this site, you must login.
-
-<form action="/student/auth/login/" method="post" class="login">
+<form action="/auth/login/" method="post" class="login">
 {% csrf_token %}
 {% if error %}<p><i>{{ error }}</i></p>{% endif %}
 {{ form.non_field_errors }}
@@ -23,7 +21,5 @@ In order to create or join teams on this site, you must login.
   </div>
 </form>
 
-If you don't have a username, you must <a href="/auth/create/">create</a> one.
 
 {% endblock %}
-
