@@ -81,7 +81,7 @@
 				var data1 = JSON.parse(data2);
 				$.each(data1,	function(index, value) {
 					$("#currentPick").html("Pick = "+value.turn);
-					var theTurn = getTurn();
+					var theTurn = value.turn;
 					var whoami = "{{ username }}";
 					switch (theTurn) {
 					case "J&R":
