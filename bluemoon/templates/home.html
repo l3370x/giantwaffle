@@ -62,11 +62,22 @@
 	function updateDB(d,s,n){
 		$.ajax({
 			type : 'POST',
-			url : "http://superbowl.bluemoonscience.com/cgi-bin/updateTable.php",
-			data : "name="+n+"&id="+getIndexFromID(d,s),
+			url : "http://superbowl.bluemoonscience.com/cgi-bin/isTaken.php",
+			data : "id="+getIndexFromID(d,s),
 			success : function(data2) {
-				$("#"+d.toString()+s.toString()).html(n);
-				advanceTurn(n);
+				if(data2 == "taken") {
+					alert("Square already picked.");
+				} else {
+					$.ajax({
+						type : 'POST',
+						url : "http://superbowl.bluemoonscience.com/cgi-bin/updateTable.php",
+						data : "name="+n+"&id="+getIndexFromID(d,s),
+						success : function(data2) {
+							$("#"+d.toString()+s.toString()).html(n);
+							advanceTurn(n);
+						}
+					});
+				}
 			}
 		});
 	}
